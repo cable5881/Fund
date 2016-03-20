@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fund.mapper.BenificiarycontactMapper" >
+  <resultMap id="BaseResultMap" type="com.fund.po.Benificiarycontact" >
+    <id column="BenificiaryContact_Id" property="benificiarycontactId" jdbcType="INTEGER" />
+    <result column="BC_Name" property="bcName" jdbcType="VARCHAR" />
+    <result column="OfficePhone" property="officephone" jdbcType="VARCHAR" />
+    <result column="MobilePhone" property="mobilephone" jdbcType="VARCHAR" />
+    <result column="Fax" property="fax" jdbcType="VARCHAR" />
+    <result column="BC_Email" property="bcEmail" jdbcType="VARCHAR" />
+    <result column="Notes" property="notes" jdbcType="VARCHAR" />
+    <result column="State" property="state" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BenificiaryContact_Id, BC_Name, OfficePhone, MobilePhone, Fax, BC_Email, Notes, State
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fund.po.BenificiarycontactExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from benificiarycontact
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from benificiarycontact
+    where BenificiaryContact_Id = #{benificiarycontactId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from benificiarycontact
+    where BenificiaryContact_Id = #{benificiarycontactId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fund.po.BenificiarycontactExample" >
+    delete from benificiarycontact
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fund.po.Benificiarycontact" >
+    insert into benificiarycontact (BenificiaryContact_Id, BC_Name, OfficePhone, 
+      MobilePhone, Fax, BC_Email, 
+      Notes, State)
+    values (#{benificiarycontactId,jdbcType=INTEGER}, #{bcName,jdbcType=VARCHAR}, #{officephone,jdbcType=VARCHAR}, 
+      #{mobilephone,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, #{bcEmail,jdbcType=VARCHAR}, 
+      #{notes,jdbcType=VARCHAR}, #{state,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="benificiarycontactId" parameterType="com.fund.po.Benificiarycontact" >
+    insert into benificiarycontact
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="benificiarycontactId != null" >
+        BenificiaryContact_Id,
+      </if>
+      <if test="bcName != null" >
+        BC_Name,
+      </if>
+      <if test="officephone != null" >
+        OfficePhone,
+      </if>
+      <if test="mobilephone != null" >
+        MobilePhone,
+      </if>
+      <if test="fax != null" >
+        Fax,
+      </if>
+      <if test="bcEmail != null" >
+        BC_Email,
+      </if>
+      <if test="notes != null" >
+        Notes,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="benificiarycontactId != null" >
+        #{benificiarycontactId,jdbcType=INTEGER},
+      </if>
+      <if test="bcName != null" >
+        #{bcName,jdbcType=VARCHAR},
+      </if>
+      <if test="officephone != null" >
+        #{officephone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null" >
+        #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="bcEmail != null" >
+        #{bcEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fund.po.BenificiarycontactExample" resultType="java.lang.Integer" >
+    select count(*) from benificiarycontact
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update benificiarycontact
+    <set >
+      <if test="record.benificiarycontactId != null" >
+        BenificiaryContact_Id = #{record.benificiarycontactId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bcName != null" >
+        BC_Name = #{record.bcName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.officephone != null" >
+        OfficePhone = #{record.officephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilephone != null" >
+        MobilePhone = #{record.mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax != null" >
+        Fax = #{record.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bcEmail != null" >
+        BC_Email = #{record.bcEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null" >
+        Notes = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        State = #{record.state,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update benificiarycontact
+    set BenificiaryContact_Id = #{record.benificiarycontactId,jdbcType=INTEGER},
+      BC_Name = #{record.bcName,jdbcType=VARCHAR},
+      OfficePhone = #{record.officephone,jdbcType=VARCHAR},
+      MobilePhone = #{record.mobilephone,jdbcType=VARCHAR},
+      Fax = #{record.fax,jdbcType=VARCHAR},
+      BC_Email = #{record.bcEmail,jdbcType=VARCHAR},
+      Notes = #{record.notes,jdbcType=VARCHAR},
+      State = #{record.state,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fund.po.Benificiarycontact" >
+    update benificiarycontact
+    <set >
+      <if test="bcName != null" >
+        BC_Name = #{bcName,jdbcType=VARCHAR},
+      </if>
+      <if test="officephone != null" >
+        OfficePhone = #{officephone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null" >
+        MobilePhone = #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        Fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="bcEmail != null" >
+        BC_Email = #{bcEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        Notes = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=BIT},
+      </if>
+    </set>
+    where BenificiaryContact_Id = #{benificiarycontactId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fund.po.Benificiarycontact" >
+    update benificiarycontact
+    set BC_Name = #{bcName,jdbcType=VARCHAR},
+      OfficePhone = #{officephone,jdbcType=VARCHAR},
+      MobilePhone = #{mobilephone,jdbcType=VARCHAR},
+      Fax = #{fax,jdbcType=VARCHAR},
+      BC_Email = #{bcEmail,jdbcType=VARCHAR},
+      Notes = #{notes,jdbcType=VARCHAR},
+      State = #{state,jdbcType=BIT}
+    where BenificiaryContact_Id = #{benificiarycontactId,jdbcType=INTEGER}
+  </update>
+</mapper>

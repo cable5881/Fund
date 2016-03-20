@@ -1,0 +1,49 @@
+$(document).ready(function(){
+	$('.admin-table').css("display","none");
+	$('.visitor-table').css("display","none");
+	$('.operator-table').css("display","none");
+    $('.sysAdmin-button').click(function(){
+    	$('.sysAdmin-button').removeClass("btn-default").addClass("btn-primary");
+    	$('.admin-button').removeClass("btn-primary").addClass("btn-default");
+    	$('.visitor-button').removeClass("btn-primary").addClass("btn-default");
+    	$('.operator-button').removeClass("btn-primary").addClass("btn-default");
+    	$('.sysAdmin-table').show();
+    	$('.admin-table').hide();
+    	$('.visitor-table').hide();
+    	$('.operator-table').hide();
+    });
+    
+    $('.admin-button').click(function(){
+    	$('.admin-button').removeClass("btn-default").addClass("btn-primary");
+    	$('.sysAdmin-button').removeClass("btn-primary").addClass("btn-default");
+    	$('.visitor-button').removeClass("btn-primary").addClass("btn-default");
+    	$('.operator-button').removeClass("btn-primary").addClass("btn-default");
+    	$('.admin-table').show();
+    	$('.sysAdmin-table').hide();
+    	$('.visitor-table').hide();
+    	$('.operator-table').hide();
+    });
+    
+    $('.visitor-button').click(function(){
+    	$('.visitor-button').removeClass("btn-default").addClass("btn-primary");
+    	$('.sysAdmin-button').removeClass("btn-primary").addClass("btn-default");
+    	$('.admin-button').removeClass("btn-primary").addClass("btn-default");
+    	$('.operator-button').removeClass("btn-primary").addClass("btn-default");
+    	$('.visitor-table').show();
+    	$('.sysAdmin-table').hide();
+    	$('.admin-table').hide();
+    	$('.operator-table').hide();
+    });
+    
+    $('.operator-button').click(function(){
+    	$('.operator-button').removeClass("btn-default").addClass("btn-primary");
+    	$('.sysAdmin-button').removeClass("btn-primary").addClass("btn-default");
+    	$('.admin-button').removeClass("btn-primary").addClass("btn-default");
+    	$('.visitor-button').removeClass("btn-primary").addClass("btn-default");
+    	$('.operator-table').show();
+    	$('.sysAdmin-table').hide();
+    	$('.visitor-table').hide();
+    	$('.admin-table').hide();
+    });
+    
+  });

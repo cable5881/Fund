@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fund.mapper.ScappinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.fund.po.Scappinfo" >
+    <id column="ScAppInfo_Id" property="scappinfoId" jdbcType="INTEGER" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+    <result column="Sc_Case" property="scCase" jdbcType="VARCHAR" />
+    <result column="View_Class" property="viewClass" jdbcType="VARCHAR" />
+    <result column="View_Institute" property="viewInstitute" jdbcType="VARCHAR" />
+    <result column="View_Judge" property="viewJudge" jdbcType="VARCHAR" />
+    <result column="Notes" property="notes" jdbcType="VARCHAR" />
+    <result column="State" property="state" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ScAppInfo_Id, Description, Sc_Case, View_Class, View_Institute, View_Judge, Notes, 
+    State
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fund.po.ScappinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from scappinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scappinfo
+    where ScAppInfo_Id = #{scappinfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from scappinfo
+    where ScAppInfo_Id = #{scappinfoId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fund.po.ScappinfoExample" >
+    delete from scappinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fund.po.Scappinfo" >
+    insert into scappinfo (ScAppInfo_Id, Description, Sc_Case, 
+      View_Class, View_Institute, View_Judge, 
+      Notes, State)
+    values (#{scappinfoId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{scCase,jdbcType=VARCHAR}, 
+      #{viewClass,jdbcType=VARCHAR}, #{viewInstitute,jdbcType=VARCHAR}, #{viewJudge,jdbcType=VARCHAR}, 
+      #{notes,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="scappinfoId"
+   parameterType="com.fund.po.Scappinfo" >
+    insert into scappinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scappinfoId != null" >
+        ScAppInfo_Id,
+      </if>
+      <if test="description != null" >
+        Description,
+      </if>
+      <if test="scCase != null" >
+        Sc_Case,
+      </if>
+      <if test="viewClass != null" >
+        View_Class,
+      </if>
+      <if test="viewInstitute != null" >
+        View_Institute,
+      </if>
+      <if test="viewJudge != null" >
+        View_Judge,
+      </if>
+      <if test="notes != null" >
+        Notes,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scappinfoId != null" >
+        #{scappinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="scCase != null" >
+        #{scCase,jdbcType=VARCHAR},
+      </if>
+      <if test="viewClass != null" >
+        #{viewClass,jdbcType=VARCHAR},
+      </if>
+      <if test="viewInstitute != null" >
+        #{viewInstitute,jdbcType=VARCHAR},
+      </if>
+      <if test="viewJudge != null" >
+        #{viewJudge,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fund.po.ScappinfoExample" resultType="java.lang.Integer" >
+    select count(*) from scappinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update scappinfo
+    <set >
+      <if test="record.scappinfoId != null" >
+        ScAppInfo_Id = #{record.scappinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null" >
+        Description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scCase != null" >
+        Sc_Case = #{record.scCase,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viewClass != null" >
+        View_Class = #{record.viewClass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viewInstitute != null" >
+        View_Institute = #{record.viewInstitute,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viewJudge != null" >
+        View_Judge = #{record.viewJudge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null" >
+        Notes = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        State = #{record.state,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update scappinfo
+    set ScAppInfo_Id = #{record.scappinfoId,jdbcType=INTEGER},
+      Description = #{record.description,jdbcType=VARCHAR},
+      Sc_Case = #{record.scCase,jdbcType=VARCHAR},
+      View_Class = #{record.viewClass,jdbcType=VARCHAR},
+      View_Institute = #{record.viewInstitute,jdbcType=VARCHAR},
+      View_Judge = #{record.viewJudge,jdbcType=VARCHAR},
+      Notes = #{record.notes,jdbcType=VARCHAR},
+      State = #{record.state,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fund.po.Scappinfo" >
+    update scappinfo
+    <set >
+      <if test="description != null" >
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="scCase != null" >
+        Sc_Case = #{scCase,jdbcType=VARCHAR},
+      </if>
+      <if test="viewClass != null" >
+        View_Class = #{viewClass,jdbcType=VARCHAR},
+      </if>
+      <if test="viewInstitute != null" >
+        View_Institute = #{viewInstitute,jdbcType=VARCHAR},
+      </if>
+      <if test="viewJudge != null" >
+        View_Judge = #{viewJudge,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        Notes = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=TINYINT},
+      </if>
+    </set>
+    where ScAppInfo_Id = #{scappinfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fund.po.Scappinfo" >
+    update scappinfo
+    set Description = #{description,jdbcType=VARCHAR},
+      Sc_Case = #{scCase,jdbcType=VARCHAR},
+      View_Class = #{viewClass,jdbcType=VARCHAR},
+      View_Institute = #{viewInstitute,jdbcType=VARCHAR},
+      View_Judge = #{viewJudge,jdbcType=VARCHAR},
+      Notes = #{notes,jdbcType=VARCHAR},
+      State = #{state,jdbcType=TINYINT}
+    where ScAppInfo_Id = #{scappinfoId,jdbcType=INTEGER}
+  </update>
+</mapper>

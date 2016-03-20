@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fund.mapper.CountsMapper" >
+
+  	<select id="selectUnverifiedProtocolCount" resultType="int">
+  		SELECT
+			count(*)
+		FROM
+			project,
+			protocol
+		WHERE project.`State` = 1
+			AND project.`Is_Passed` = 2 
+			AND protocol.`State` = 1
+			AND protocol.`Is_Passed` = 0
+			AND protocol.`Protocol_Id` = project.`Protocol_Id`
+  	</select>
+  	
+  	<select id="selectVerifiedProtocolCount" resultType="int">
+		SELECT
+			count(*)
+		FROM
+			project,
+			protocol
+		WHERE project.`State` = 1
+			AND project.`Is_Passed` = 2 
+			AND protocol.`Is_Passed` > 0
+			AND protocol.`State` = 1
+			AND protocol.`Protocol_Id` = project.`Protocol_Id`
+  	</select>
+  	
+  	<select id="selectUnverifiedNewsUrlCountByPid" resultType="int" parameterType="int">
+  		SELECT 
+  			COUNT(*) 
+		FROM
+  			newsurl 
+		WHERE Project_Id = #{projectId} 
+		AND Is_Passed = 0
+  		AND State = 1 ;
+  	</select>
+  	
+  	<select id="selectVerifiedNewsUrlCountByPid" resultType="int" parameterType="int">
+  		SELECT 
+  			COUNT(*) 
+		FROM
+  			newsurl 
+		WHERE Project_Id = #{projectId} 
+		AND Is_Passed > 0
+  		AND State = 1 ;
+  	</select>
+  	
+  	<select id="selectUsersCountByLevel" resultType="int" parameterType="int">
+  		SELECT 
+  			COUNT(*) 
+		FROM
+  			user AS u,position AS p 
+		WHERE p.level = #{level}
+		AND u.position_Id = p.position_Id
+  		AND u.State = 1 ;
+  	</select>
+  	
+  	<select id="selectScAppsCountByBNId" resultType="int" parameterType="int">
+  		SELECT 
+		  COUNT(*) 
+		FROM
+		  scholarshipApp
+		WHERE BonusNotice_Id = #{bNoticeId} 
+		  AND State = 1 ;
+  	</select>
+  	
+  	<select id="selectStAppsCountByBNId" resultType="int" parameterType="int">
+  		SELECT 
+		  COUNT(*) 
+		FROM
+		  stipendApp
+		WHERE BonusNotice_Id = #{bNoticeId} 
+		  AND State = 1 ;
+  	</select>
+  	
+  	<select id="selectUnverifiedScAppsCountByBNId" resultType="int" parameterType="int">
+  		SELECT 
+		  COUNT(*) 
+		FROM
+		  scholarshipApp
+		WHERE BonusNotice_Id = #{bNoticeId} 
+		  AND Is_Passed = 0
+		  AND State = 1 ;
+  	</select>
+  	
+  	<select id="selectUnverifiedStAppsCountByBNId" resultType="int" parameterType="int">
+  		SELECT 
+		  COUNT(*) 
+		FROM
+		  stipendApp
+		WHERE BonusNotice_Id = #{bNoticeId} 
+		  AND Is_Passed = 0
+		  AND State = 1 ;
+  	</select>
+  	
+  	<select id="selectVerifiedScAppsCountByBNId" resultType="int" parameterType="int">
+  		SELECT 
+		  COUNT(*) 
+		FROM
+		  scholarshipApp
+		WHERE BonusNotice_Id = #{bNoticeId} 
+		  AND Is_Passed > 0
+		  AND State = 1 ;
+  	</select>
+  	
+  	<select id="selectVerifiedStAppsCountByBNId" resultType="int" parameterType="int">
+  		SELECT 
+		  COUNT(*) 
+		FROM
+		  stipendApp
+		WHERE BonusNotice_Id = #{bNoticeId} 
+		  AND Is_Passed > 0
+		  AND State = 1 ;
+  	</select>
+  	
+  	<select id="selectBonusProjectsCountByUserId" resultType="int" parameterType="int">
+  		SELECT 
+		  COUNT(*)
+		FROM
+		  project p 
+		  INNER JOIN bonusnotice b1 
+		    ON b1.`Start_Date` = 
+		    (SELECT 
+		      MAX(Start_Date) 
+		    FROM
+		      bonusnotice b2 
+		    WHERE p.`Project_Id` = b2.`Project_Id`) 
+		WHERE p.`User_Id` = #{userId} 
+		  AND p.`Is_Passed` = 2 
+		  AND p.`State` = 1 ;
+  	</select>
+  	
+  	<select id="selectUnverifiedProjectsCount" resultType="int" parameterType="int">
+  		select count(*) 
+   			from project
+   	 			where is_passed = 1 and state = 1;
+  	</select>
+  	
+  	<select id="selectVerifiedProjectsCount" resultType="int" parameterType="int">
+  		select count(*) 
+   			from project
+   	 			where is_passed > 1 and state = 1;
+  	</select>
+  	
+  	<select id="selectInbillsCountBySerachKey" resultType="int" parameterType="string">
+  		SELECT 
+		  count(*) 
+		FROM
+		  inbill 
+		WHERE (
+		    Money_Num = #{key} 
+		    OR payer = #{key} 
+		  ) 
+		  AND state = 1
+  	</select>
+  
+</mapper>

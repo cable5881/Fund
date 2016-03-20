@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fund.mapper.InbillMapper" >
+  <resultMap id="BaseResultMap" type="com.fund.po.Inbill" >
+    <id column="InBill_Id" property="inbillId" jdbcType="INTEGER" />
+    <result column="MoneyCheck_Id" property="moneycheckId" jdbcType="INTEGER" />
+    <result column="Money_Num" property="moneyNum" jdbcType="VARCHAR" />
+    <result column="Payer" property="payer" jdbcType="VARCHAR" />
+    <result column="Money_In" property="moneyIn" jdbcType="DOUBLE" />
+    <result column="Time_In" property="timeIn" jdbcType="TIMESTAMP" />
+    <result column="State" property="state" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    InBill_Id, MoneyCheck_Id, Money_Num, Payer, Money_In, Time_In, State
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fund.po.InbillExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from inbill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from inbill
+    where InBill_Id = #{inbillId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from inbill
+    where InBill_Id = #{inbillId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fund.po.InbillExample" >
+    delete from inbill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fund.po.Inbill" >
+    insert into inbill (InBill_Id, MoneyCheck_Id, Money_Num, 
+      Payer, Money_In, Time_In, 
+      State)
+    values (#{inbillId,jdbcType=INTEGER}, #{moneycheckId,jdbcType=INTEGER}, #{moneyNum,jdbcType=VARCHAR}, 
+      #{payer,jdbcType=VARCHAR}, #{moneyIn,jdbcType=DOUBLE}, #{timeIn,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fund.po.Inbill" >
+    insert into inbill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="inbillId != null" >
+        InBill_Id,
+      </if>
+      <if test="moneycheckId != null" >
+        MoneyCheck_Id,
+      </if>
+      <if test="moneyNum != null" >
+        Money_Num,
+      </if>
+      <if test="payer != null" >
+        Payer,
+      </if>
+      <if test="moneyIn != null" >
+        Money_In,
+      </if>
+      <if test="timeIn != null" >
+        Time_In,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="inbillId != null" >
+        #{inbillId,jdbcType=INTEGER},
+      </if>
+      <if test="moneycheckId != null" >
+        #{moneycheckId,jdbcType=INTEGER},
+      </if>
+      <if test="moneyNum != null" >
+        #{moneyNum,jdbcType=VARCHAR},
+      </if>
+      <if test="payer != null" >
+        #{payer,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyIn != null" >
+        #{moneyIn,jdbcType=DOUBLE},
+      </if>
+      <if test="timeIn != null" >
+        #{timeIn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fund.po.InbillExample" resultType="java.lang.Integer" >
+    select count(*) from inbill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update inbill
+    <set >
+      <if test="record.inbillId != null" >
+        InBill_Id = #{record.inbillId,jdbcType=INTEGER},
+      </if>
+      <if test="record.moneycheckId != null" >
+        MoneyCheck_Id = #{record.moneycheckId,jdbcType=INTEGER},
+      </if>
+      <if test="record.moneyNum != null" >
+        Money_Num = #{record.moneyNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payer != null" >
+        Payer = #{record.payer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moneyIn != null" >
+        Money_In = #{record.moneyIn,jdbcType=DOUBLE},
+      </if>
+      <if test="record.timeIn != null" >
+        Time_In = #{record.timeIn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null" >
+        State = #{record.state,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update inbill
+    set InBill_Id = #{record.inbillId,jdbcType=INTEGER},
+      MoneyCheck_Id = #{record.moneycheckId,jdbcType=INTEGER},
+      Money_Num = #{record.moneyNum,jdbcType=VARCHAR},
+      Payer = #{record.payer,jdbcType=VARCHAR},
+      Money_In = #{record.moneyIn,jdbcType=DOUBLE},
+      Time_In = #{record.timeIn,jdbcType=TIMESTAMP},
+      State = #{record.state,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fund.po.Inbill" >
+    update inbill
+    <set >
+      <if test="moneycheckId != null" >
+        MoneyCheck_Id = #{moneycheckId,jdbcType=INTEGER},
+      </if>
+      <if test="moneyNum != null" >
+        Money_Num = #{moneyNum,jdbcType=VARCHAR},
+      </if>
+      <if test="payer != null" >
+        Payer = #{payer,jdbcType=VARCHAR},
+      </if>
+      <if test="moneyIn != null" >
+        Money_In = #{moneyIn,jdbcType=DOUBLE},
+      </if>
+      <if test="timeIn != null" >
+        Time_In = #{timeIn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=TINYINT},
+      </if>
+    </set>
+    where InBill_Id = #{inbillId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fund.po.Inbill" >
+    update inbill
+    set MoneyCheck_Id = #{moneycheckId,jdbcType=INTEGER},
+      Money_Num = #{moneyNum,jdbcType=VARCHAR},
+      Payer = #{payer,jdbcType=VARCHAR},
+      Money_In = #{moneyIn,jdbcType=DOUBLE},
+      Time_In = #{timeIn,jdbcType=TIMESTAMP},
+      State = #{state,jdbcType=TINYINT}
+    where InBill_Id = #{inbillId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 自定义SQL -->
+  <select id="selectInbillsByMCheckId" resultMap="BaseResultMap" parameterType="hashmap">
+  	SELECT 
+	  <include refid="Base_Column_List" /> 
+	FROM
+	  inbill 
+	WHERE MoneyCheck_Id = #{moneyCheckId} 
+	  AND state = 1 
+	ORDER BY Time_In DESC 
+	LIMIT #{page.startPos},#{page.pageSize}
+  </select>
+  <select id="selectInbillByPayerOrMoneyNum" resultMap="BaseResultMap" parameterType="hashmap">
+  	SELECT 
+	  * 
+	FROM
+	  inbill 
+	WHERE (
+	    Money_Num = #{key} 
+	    OR payer = #{key} 
+	  ) 
+	  AND state = 1 
+	ORDER BY Time_In DESC 
+	LIMIT #{page.startPos},#{page.pageSize}
+  </select>
+  <!-- END -->
+</mapper>

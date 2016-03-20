@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fund.mapper.ProjecttypeMapper" >
+  <resultMap id="BaseResultMap" type="com.fund.po.Projecttype" >
+    <id column="ProjectType_Id" property="projecttypeId" jdbcType="INTEGER" />
+    <result column="ProjectType_Name" property="projecttypeName" jdbcType="VARCHAR" />
+    <result column="State" property="state" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ProjectType_Id, ProjectType_Name, State
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fund.po.ProjecttypeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from projecttype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from projecttype
+    where ProjectType_Id = #{projecttypeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from projecttype
+    where ProjectType_Id = #{projecttypeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fund.po.ProjecttypeExample" >
+    delete from projecttype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fund.po.Projecttype" >
+    insert into projecttype (ProjectType_Id, ProjectType_Name, State
+      )
+    values (#{projecttypeId,jdbcType=INTEGER}, #{projecttypeName,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fund.po.Projecttype" >
+    insert into projecttype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projecttypeId != null" >
+        ProjectType_Id,
+      </if>
+      <if test="projecttypeName != null" >
+        ProjectType_Name,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projecttypeId != null" >
+        #{projecttypeId,jdbcType=INTEGER},
+      </if>
+      <if test="projecttypeName != null" >
+        #{projecttypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fund.po.ProjecttypeExample" resultType="java.lang.Integer" >
+    select count(*) from projecttype
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update projecttype
+    <set >
+      <if test="record.projecttypeId != null" >
+        ProjectType_Id = #{record.projecttypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projecttypeName != null" >
+        ProjectType_Name = #{record.projecttypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        State = #{record.state,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update projecttype
+    set ProjectType_Id = #{record.projecttypeId,jdbcType=INTEGER},
+      ProjectType_Name = #{record.projecttypeName,jdbcType=VARCHAR},
+      State = #{record.state,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fund.po.Projecttype" >
+    update projecttype
+    <set >
+      <if test="projecttypeName != null" >
+        ProjectType_Name = #{projecttypeName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=TINYINT},
+      </if>
+    </set>
+    where ProjectType_Id = #{projecttypeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fund.po.Projecttype" >
+    update projecttype
+    set ProjectType_Name = #{projecttypeName,jdbcType=VARCHAR},
+      State = #{state,jdbcType=TINYINT}
+    where ProjectType_Id = #{projecttypeId,jdbcType=INTEGER}
+  </update>
+</mapper>

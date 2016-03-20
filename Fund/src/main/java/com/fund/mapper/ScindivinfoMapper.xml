@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fund.mapper.ScindivinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.fund.po.Scindivinfo" >
+    <id column="ScIndivInfo_Id" property="scindivinfoId" jdbcType="INTEGER" />
+    <result column="Sc_Name" property="scName" jdbcType="VARCHAR" />
+    <result column="Sc_Sex" property="scSex" jdbcType="TINYINT" />
+    <result column="Sc_Birthday" property="scBirthday" jdbcType="TIMESTAMP" />
+    <result column="Sc_StuId" property="scStuid" jdbcType="VARCHAR" />
+    <result column="Institute" property="institute" jdbcType="VARCHAR" />
+    <result column="Degrees" property="degrees" jdbcType="VARCHAR" />
+    <result column="Major" property="major" jdbcType="VARCHAR" />
+    <result column="Classes" property="classes" jdbcType="VARCHAR" />
+    <result column="Nation" property="nation" jdbcType="VARCHAR" />
+    <result column="Enrolled_Time" property="enrolledTime" jdbcType="TIMESTAMP" />
+    <result column="Political_Status" property="politicalStatus" jdbcType="VARCHAR" />
+    <result column="Aca_Score" property="acaScore" jdbcType="VARCHAR" />
+    <result column="AllTest_Level" property="alltestLevel" jdbcType="VARCHAR" />
+    <result column="Phone_Number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="Sc_Email" property="scEmail" jdbcType="VARCHAR" />
+    <result column="Sc_Address" property="scAddress" jdbcType="VARCHAR" />
+    <result column="Photo_Url" property="photoUrl" jdbcType="VARCHAR" />
+    <result column="State" property="state" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ScIndivInfo_Id, Sc_Name, Sc_Sex, Sc_Birthday, Sc_StuId, Institute, Degrees, Major, 
+    Classes, Nation, Enrolled_Time, Political_Status, Aca_Score, AllTest_Level, Phone_Number, 
+    Sc_Email, Sc_Address, Photo_Url, State
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fund.po.ScindivinfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from scindivinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scindivinfo
+    where ScIndivInfo_Id = #{scindivinfoId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from scindivinfo
+    where ScIndivInfo_Id = #{scindivinfoId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fund.po.ScindivinfoExample" >
+    delete from scindivinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fund.po.Scindivinfo" >
+    insert into scindivinfo (ScIndivInfo_Id, Sc_Name, Sc_Sex, 
+      Sc_Birthday, Sc_StuId, Institute, 
+      Degrees, Major, Classes, 
+      Nation, Enrolled_Time, Political_Status, 
+      Aca_Score, AllTest_Level, Phone_Number, 
+      Sc_Email, Sc_Address, Photo_Url, 
+      State)
+    values (#{scindivinfoId,jdbcType=INTEGER}, #{scName,jdbcType=VARCHAR}, #{scSex,jdbcType=TINYINT}, 
+      #{scBirthday,jdbcType=TIMESTAMP}, #{scStuid,jdbcType=VARCHAR}, #{institute,jdbcType=VARCHAR}, 
+      #{degrees,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{classes,jdbcType=VARCHAR}, 
+      #{nation,jdbcType=VARCHAR}, #{enrolledTime,jdbcType=TIMESTAMP}, #{politicalStatus,jdbcType=VARCHAR}, 
+      #{acaScore,jdbcType=VARCHAR}, #{alltestLevel,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR}, 
+      #{scEmail,jdbcType=VARCHAR}, #{scAddress,jdbcType=VARCHAR}, #{photoUrl,jdbcType=VARCHAR}, 
+      #{state,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="scindivinfoId" parameterType="com.fund.po.Scindivinfo" >
+    insert into scindivinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scindivinfoId != null" >
+        ScIndivInfo_Id,
+      </if>
+      <if test="scName != null" >
+        Sc_Name,
+      </if>
+      <if test="scSex != null" >
+        Sc_Sex,
+      </if>
+      <if test="scBirthday != null" >
+        Sc_Birthday,
+      </if>
+      <if test="scStuid != null" >
+        Sc_StuId,
+      </if>
+      <if test="institute != null" >
+        Institute,
+      </if>
+      <if test="degrees != null" >
+        Degrees,
+      </if>
+      <if test="major != null" >
+        Major,
+      </if>
+      <if test="classes != null" >
+        Classes,
+      </if>
+      <if test="nation != null" >
+        Nation,
+      </if>
+      <if test="enrolledTime != null" >
+        Enrolled_Time,
+      </if>
+      <if test="politicalStatus != null" >
+        Political_Status,
+      </if>
+      <if test="acaScore != null" >
+        Aca_Score,
+      </if>
+      <if test="alltestLevel != null" >
+        AllTest_Level,
+      </if>
+      <if test="phoneNumber != null" >
+        Phone_Number,
+      </if>
+      <if test="scEmail != null" >
+        Sc_Email,
+      </if>
+      <if test="scAddress != null" >
+        Sc_Address,
+      </if>
+      <if test="photoUrl != null" >
+        Photo_Url,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scindivinfoId != null" >
+        #{scindivinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="scName != null" >
+        #{scName,jdbcType=VARCHAR},
+      </if>
+      <if test="scSex != null" >
+        #{scSex,jdbcType=TINYINT},
+      </if>
+      <if test="scBirthday != null" >
+        #{scBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scStuid != null" >
+        #{scStuid,jdbcType=VARCHAR},
+      </if>
+      <if test="institute != null" >
+        #{institute,jdbcType=VARCHAR},
+      </if>
+      <if test="degrees != null" >
+        #{degrees,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="classes != null" >
+        #{classes,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="enrolledTime != null" >
+        #{enrolledTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="politicalStatus != null" >
+        #{politicalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="acaScore != null" >
+        #{acaScore,jdbcType=VARCHAR},
+      </if>
+      <if test="alltestLevel != null" >
+        #{alltestLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null" >
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="scEmail != null" >
+        #{scEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="scAddress != null" >
+        #{scAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="photoUrl != null" >
+        #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fund.po.ScindivinfoExample" resultType="java.lang.Integer" >
+    select count(*) from scindivinfo
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update scindivinfo
+    <set >
+      <if test="record.scindivinfoId != null" >
+        ScIndivInfo_Id = #{record.scindivinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scName != null" >
+        Sc_Name = #{record.scName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scSex != null" >
+        Sc_Sex = #{record.scSex,jdbcType=TINYINT},
+      </if>
+      <if test="record.scBirthday != null" >
+        Sc_Birthday = #{record.scBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.scStuid != null" >
+        Sc_StuId = #{record.scStuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.institute != null" >
+        Institute = #{record.institute,jdbcType=VARCHAR},
+      </if>
+      <if test="record.degrees != null" >
+        Degrees = #{record.degrees,jdbcType=VARCHAR},
+      </if>
+      <if test="record.major != null" >
+        Major = #{record.major,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classes != null" >
+        Classes = #{record.classes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nation != null" >
+        Nation = #{record.nation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enrolledTime != null" >
+        Enrolled_Time = #{record.enrolledTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.politicalStatus != null" >
+        Political_Status = #{record.politicalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acaScore != null" >
+        Aca_Score = #{record.acaScore,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alltestLevel != null" >
+        AllTest_Level = #{record.alltestLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneNumber != null" >
+        Phone_Number = #{record.phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scEmail != null" >
+        Sc_Email = #{record.scEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scAddress != null" >
+        Sc_Address = #{record.scAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photoUrl != null" >
+        Photo_Url = #{record.photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        State = #{record.state,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update scindivinfo
+    set ScIndivInfo_Id = #{record.scindivinfoId,jdbcType=INTEGER},
+      Sc_Name = #{record.scName,jdbcType=VARCHAR},
+      Sc_Sex = #{record.scSex,jdbcType=TINYINT},
+      Sc_Birthday = #{record.scBirthday,jdbcType=TIMESTAMP},
+      Sc_StuId = #{record.scStuid,jdbcType=VARCHAR},
+      Institute = #{record.institute,jdbcType=VARCHAR},
+      Degrees = #{record.degrees,jdbcType=VARCHAR},
+      Major = #{record.major,jdbcType=VARCHAR},
+      Classes = #{record.classes,jdbcType=VARCHAR},
+      Nation = #{record.nation,jdbcType=VARCHAR},
+      Enrolled_Time = #{record.enrolledTime,jdbcType=TIMESTAMP},
+      Political_Status = #{record.politicalStatus,jdbcType=VARCHAR},
+      Aca_Score = #{record.acaScore,jdbcType=VARCHAR},
+      AllTest_Level = #{record.alltestLevel,jdbcType=VARCHAR},
+      Phone_Number = #{record.phoneNumber,jdbcType=VARCHAR},
+      Sc_Email = #{record.scEmail,jdbcType=VARCHAR},
+      Sc_Address = #{record.scAddress,jdbcType=VARCHAR},
+      Photo_Url = #{record.photoUrl,jdbcType=VARCHAR},
+      State = #{record.state,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fund.po.Scindivinfo" >
+    update scindivinfo
+    <set >
+      <if test="scName != null" >
+        Sc_Name = #{scName,jdbcType=VARCHAR},
+      </if>
+      <if test="scSex != null" >
+        Sc_Sex = #{scSex,jdbcType=TINYINT},
+      </if>
+      <if test="scBirthday != null" >
+        Sc_Birthday = #{scBirthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scStuid != null" >
+        Sc_StuId = #{scStuid,jdbcType=VARCHAR},
+      </if>
+      <if test="institute != null" >
+        Institute = #{institute,jdbcType=VARCHAR},
+      </if>
+      <if test="degrees != null" >
+        Degrees = #{degrees,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        Major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="classes != null" >
+        Classes = #{classes,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null" >
+        Nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="enrolledTime != null" >
+        Enrolled_Time = #{enrolledTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="politicalStatus != null" >
+        Political_Status = #{politicalStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="acaScore != null" >
+        Aca_Score = #{acaScore,jdbcType=VARCHAR},
+      </if>
+      <if test="alltestLevel != null" >
+        AllTest_Level = #{alltestLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null" >
+        Phone_Number = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="scEmail != null" >
+        Sc_Email = #{scEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="scAddress != null" >
+        Sc_Address = #{scAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="photoUrl != null" >
+        Photo_Url = #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=TINYINT},
+      </if>
+    </set>
+    where ScIndivInfo_Id = #{scindivinfoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fund.po.Scindivinfo" >
+    update scindivinfo
+    set Sc_Name = #{scName,jdbcType=VARCHAR},
+      Sc_Sex = #{scSex,jdbcType=TINYINT},
+      Sc_Birthday = #{scBirthday,jdbcType=TIMESTAMP},
+      Sc_StuId = #{scStuid,jdbcType=VARCHAR},
+      Institute = #{institute,jdbcType=VARCHAR},
+      Degrees = #{degrees,jdbcType=VARCHAR},
+      Major = #{major,jdbcType=VARCHAR},
+      Classes = #{classes,jdbcType=VARCHAR},
+      Nation = #{nation,jdbcType=VARCHAR},
+      Enrolled_Time = #{enrolledTime,jdbcType=TIMESTAMP},
+      Political_Status = #{politicalStatus,jdbcType=VARCHAR},
+      Aca_Score = #{acaScore,jdbcType=VARCHAR},
+      AllTest_Level = #{alltestLevel,jdbcType=VARCHAR},
+      Phone_Number = #{phoneNumber,jdbcType=VARCHAR},
+      Sc_Email = #{scEmail,jdbcType=VARCHAR},
+      Sc_Address = #{scAddress,jdbcType=VARCHAR},
+      Photo_Url = #{photoUrl,jdbcType=VARCHAR},
+      State = #{state,jdbcType=TINYINT}
+    where ScIndivInfo_Id = #{scindivinfoId,jdbcType=INTEGER}
+  </update>
+</mapper>

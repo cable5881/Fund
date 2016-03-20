@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fund.mapper.MessageMapper" >
+  <resultMap id="BaseResultMap" type="com.fund.po.Message" >
+    <id column="Message_Id" property="messageId" jdbcType="INTEGER" />
+    <result column="User_Id" property="userId" jdbcType="INTEGER" />
+    <result column="Msg_Title" property="msgTitle" jdbcType="VARCHAR" />
+    <result column="Msg_Content" property="msgContent" jdbcType="CHAR" />
+    <result column="Received_Time" property="receivedTime" jdbcType="TIMESTAMP" />
+    <result column="File_Id" property="fileId" jdbcType="INTEGER" />
+    <result column="Is_Readed" property="isReaded" jdbcType="TINYINT" />
+    <result column="State" property="state" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Message_Id, User_Id, Msg_Title, Msg_Content, Received_Time, File_Id, Is_Readed, State
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fund.po.MessageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from message
+    where Message_Id = #{messageId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from message
+    where Message_Id = #{messageId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fund.po.MessageExample" >
+    delete from message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fund.po.Message" >
+    insert into message (Message_Id, User_Id, Msg_Title, 
+      Msg_Content, Received_Time, File_Id, 
+      Is_Readed, State)
+    values (#{messageId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{msgTitle,jdbcType=VARCHAR}, 
+      #{msgContent,jdbcType=CHAR}, #{receivedTime,jdbcType=TIMESTAMP}, #{fileId,jdbcType=INTEGER}, 
+      #{isReaded,jdbcType=TINYINT}, #{state,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fund.po.Message" >
+    insert into message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        Message_Id,
+      </if>
+      <if test="userId != null" >
+        User_Id,
+      </if>
+      <if test="msgTitle != null" >
+        Msg_Title,
+      </if>
+      <if test="msgContent != null" >
+        Msg_Content,
+      </if>
+      <if test="receivedTime != null" >
+        Received_Time,
+      </if>
+      <if test="fileId != null" >
+        File_Id,
+      </if>
+      <if test="isReaded != null" >
+        Is_Readed,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        #{messageId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="msgTitle != null" >
+        #{msgTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="msgContent != null" >
+        #{msgContent,jdbcType=CHAR},
+      </if>
+      <if test="receivedTime != null" >
+        #{receivedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileId != null" >
+        #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="isReaded != null" >
+        #{isReaded,jdbcType=TINYINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fund.po.MessageExample" resultType="java.lang.Integer" >
+    select count(*) from message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update message
+    <set >
+      <if test="record.messageId != null" >
+        Message_Id = #{record.messageId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        User_Id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.msgTitle != null" >
+        Msg_Title = #{record.msgTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.msgContent != null" >
+        Msg_Content = #{record.msgContent,jdbcType=CHAR},
+      </if>
+      <if test="record.receivedTime != null" >
+        Received_Time = #{record.receivedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fileId != null" >
+        File_Id = #{record.fileId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isReaded != null" >
+        Is_Readed = #{record.isReaded,jdbcType=TINYINT},
+      </if>
+      <if test="record.state != null" >
+        State = #{record.state,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update message
+    set Message_Id = #{record.messageId,jdbcType=INTEGER},
+      User_Id = #{record.userId,jdbcType=INTEGER},
+      Msg_Title = #{record.msgTitle,jdbcType=VARCHAR},
+      Msg_Content = #{record.msgContent,jdbcType=CHAR},
+      Received_Time = #{record.receivedTime,jdbcType=TIMESTAMP},
+      File_Id = #{record.fileId,jdbcType=INTEGER},
+      Is_Readed = #{record.isReaded,jdbcType=TINYINT},
+      State = #{record.state,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fund.po.Message" >
+    update message
+    <set >
+      <if test="userId != null" >
+        User_Id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="msgTitle != null" >
+        Msg_Title = #{msgTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="msgContent != null" >
+        Msg_Content = #{msgContent,jdbcType=CHAR},
+      </if>
+      <if test="receivedTime != null" >
+        Received_Time = #{receivedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileId != null" >
+        File_Id = #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="isReaded != null" >
+        Is_Readed = #{isReaded,jdbcType=TINYINT},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=TINYINT},
+      </if>
+    </set>
+    where Message_Id = #{messageId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fund.po.Message" >
+    update message
+    set User_Id = #{userId,jdbcType=INTEGER},
+      Msg_Title = #{msgTitle,jdbcType=VARCHAR},
+      Msg_Content = #{msgContent,jdbcType=CHAR},
+      Received_Time = #{receivedTime,jdbcType=TIMESTAMP},
+      File_Id = #{fileId,jdbcType=INTEGER},
+      Is_Readed = #{isReaded,jdbcType=TINYINT},
+      State = #{state,jdbcType=TINYINT}
+    where Message_Id = #{messageId,jdbcType=INTEGER}
+  </update>
+  
+	<!-- 自定义SQL -->
+	<select id="selectUnreadMsgByUid" resultMap="BaseResultMap" parameterType="int">
+	  	SELECT
+	  		<include refid="Base_Column_List" />
+	  	FROM message
+	  	WHERE Is_Readed = 0
+	  	AND State = 1
+	  	AND User_Id = #{userId}
+	  	ORDER BY Received_Time DESC
+	  	LIMIT 0,5
+  </select>
+  <select id="selectAllMsgByUid" resultMap="BaseResultMap" parameterType="hashmap">
+	  	SELECT
+	  	<include refid="Base_Column_List" />
+	  	FROM message
+	  	WHERE State = 1
+	  	AND User_Id = #{userId}
+	  	ORDER BY Received_Time DESC
+	  	limit #{page.startPos},#{page.pageSize}
+  </select>  
+</mapper>

@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fund.mapper.OutbillMapper" >
+  <resultMap id="BaseResultMap" type="com.fund.po.Outbill" >
+    <id column="OutBill_Id" property="outbillId" jdbcType="INTEGER" />
+    <result column="MoneyCheck_Id" property="moneycheckId" jdbcType="INTEGER" />
+    <result column="Money_Out" property="moneyOut" jdbcType="DOUBLE" />
+    <result column="Time_Out" property="timeOut" jdbcType="TIMESTAMP" />
+    <result column="State" property="state" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    OutBill_Id, MoneyCheck_Id, Money_Out, Time_Out, State
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fund.po.OutbillExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from outbill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from outbill
+    where OutBill_Id = #{outbillId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from outbill
+    where OutBill_Id = #{outbillId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fund.po.OutbillExample" >
+    delete from outbill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="outbillId" parameterType="com.fund.po.Outbill" >
+    insert into outbill (OutBill_Id, MoneyCheck_Id, Money_Out, 
+      Time_Out, State)
+    values (#{outbillId,jdbcType=INTEGER}, #{moneycheckId,jdbcType=INTEGER}, #{moneyOut,jdbcType=DOUBLE}, 
+      #{timeOut,jdbcType=TIMESTAMP}, #{state,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="outbillId" parameterType="com.fund.po.Outbill" >
+    insert into outbill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="outbillId != null" >
+        OutBill_Id,
+      </if>
+      <if test="moneycheckId != null" >
+        MoneyCheck_Id,
+      </if>
+      <if test="moneyOut != null" >
+        Money_Out,
+      </if>
+      <if test="timeOut != null" >
+        Time_Out,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="outbillId != null" >
+        #{outbillId,jdbcType=INTEGER},
+      </if>
+      <if test="moneycheckId != null" >
+        #{moneycheckId,jdbcType=INTEGER},
+      </if>
+      <if test="moneyOut != null" >
+        #{moneyOut,jdbcType=DOUBLE},
+      </if>
+      <if test="timeOut != null" >
+        #{timeOut,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fund.po.OutbillExample" resultType="java.lang.Integer" >
+    select count(*) from outbill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" useGeneratedKeys="true" keyProperty="outbillId" parameterType="map" >
+    update outbill
+    <set >
+      <if test="record.outbillId != null" >
+        OutBill_Id = #{record.outbillId,jdbcType=INTEGER},
+      </if>
+      <if test="record.moneycheckId != null" >
+        MoneyCheck_Id = #{record.moneycheckId,jdbcType=INTEGER},
+      </if>
+      <if test="record.moneyOut != null" >
+        Money_Out = #{record.moneyOut,jdbcType=DOUBLE},
+      </if>
+      <if test="record.timeOut != null" >
+        Time_Out = #{record.timeOut,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.state != null" >
+        State = #{record.state,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update outbill
+    set OutBill_Id = #{record.outbillId,jdbcType=INTEGER},
+      MoneyCheck_Id = #{record.moneycheckId,jdbcType=INTEGER},
+      Money_Out = #{record.moneyOut,jdbcType=DOUBLE},
+      Time_Out = #{record.timeOut,jdbcType=TIMESTAMP},
+      State = #{record.state,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fund.po.Outbill" >
+    update outbill
+    <set >
+      <if test="moneycheckId != null" >
+        MoneyCheck_Id = #{moneycheckId,jdbcType=INTEGER},
+      </if>
+      <if test="moneyOut != null" >
+        Money_Out = #{moneyOut,jdbcType=DOUBLE},
+      </if>
+      <if test="timeOut != null" >
+        Time_Out = #{timeOut,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=TINYINT},
+      </if>
+    </set>
+    where OutBill_Id = #{outbillId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fund.po.Outbill" >
+    update outbill
+    set MoneyCheck_Id = #{moneycheckId,jdbcType=INTEGER},
+      Money_Out = #{moneyOut,jdbcType=DOUBLE},
+      Time_Out = #{timeOut,jdbcType=TIMESTAMP},
+      State = #{state,jdbcType=TINYINT}
+    where OutBill_Id = #{outbillId,jdbcType=INTEGER}
+  </update>
+  
+<!-- 自定义SQL -->
+  <select id="selectOutbillsByMCheckId" resultMap="BaseResultMap" parameterType="hashmap">
+  	SELECT 
+	  <include refid="Base_Column_List" /> 
+	FROM
+	  outbill 
+	WHERE MoneyCheck_Id = #{moneyCheckId} 
+	  AND state = 1 
+	ORDER BY Time_Out DESC 
+	LIMIT #{page.startPos},#{page.pageSize}
+  </select>
+  
+  <!-- END -->  
+</mapper>

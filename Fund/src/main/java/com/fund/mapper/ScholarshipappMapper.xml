@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fund.mapper.ScholarshipappMapper" >
+  <resultMap id="BaseResultMap" type="com.fund.po.Scholarshipapp" >
+    <id column="ScholarshipApp_Id" property="scholarshipappId" jdbcType="INTEGER" />
+    <result column="BonusNotice_Id" property="bonusnoticeId" jdbcType="INTEGER" />
+    <result column="Stu_Num" property="stuNum" jdbcType="VARCHAR" />
+    <result column="ScIndivInfo_Id" property="scindivinfoId" jdbcType="INTEGER" />
+    <result column="ScAppInfo_Id" property="scappinfoId" jdbcType="INTEGER" />
+    <result column="File_Id" property="fileId" jdbcType="INTEGER" />
+    <result column="Notes" property="notes" jdbcType="VARCHAR" />
+    <result column="Is_Passed" property="isPassed" jdbcType="TINYINT" />
+    <result column="State" property="state" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ScholarshipApp_Id, BonusNotice_Id, Stu_Num, ScIndivInfo_Id, ScAppInfo_Id, File_Id, 
+    Notes, Is_Passed, State
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fund.po.ScholarshipappExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from scholarshipapp
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from scholarshipapp
+    where ScholarshipApp_Id = #{scholarshipappId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from scholarshipapp
+    where ScholarshipApp_Id = #{scholarshipappId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fund.po.ScholarshipappExample" >
+    delete from scholarshipapp
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fund.po.Scholarshipapp" >
+    insert into scholarshipapp (ScholarshipApp_Id, BonusNotice_Id, 
+      Stu_Num, ScIndivInfo_Id, ScAppInfo_Id, 
+      File_Id, Notes, Is_Passed, 
+      State)
+    values (#{scholarshipappId,jdbcType=INTEGER}, #{bonusnoticeId,jdbcType=INTEGER}, 
+      #{stuNum,jdbcType=VARCHAR}, #{scindivinfoId,jdbcType=INTEGER}, #{scappinfoId,jdbcType=INTEGER}, 
+      #{fileId,jdbcType=INTEGER}, #{notes,jdbcType=VARCHAR}, #{isPassed,jdbcType=TINYINT}, 
+      #{state,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="scholarshipappId" parameterType="com.fund.po.Scholarshipapp" >
+    insert into scholarshipapp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scholarshipappId != null" >
+        ScholarshipApp_Id,
+      </if>
+      <if test="bonusnoticeId != null" >
+        BonusNotice_Id,
+      </if>
+      <if test="stuNum != null" >
+        Stu_Num,
+      </if>
+      <if test="scindivinfoId != null" >
+        ScIndivInfo_Id,
+      </if>
+      <if test="scappinfoId != null" >
+        ScAppInfo_Id,
+      </if>
+      <if test="fileId != null" >
+        File_Id,
+      </if>
+      <if test="notes != null" >
+        Notes,
+      </if>
+      <if test="isPassed != null" >
+        Is_Passed,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scholarshipappId != null" >
+        #{scholarshipappId,jdbcType=INTEGER},
+      </if>
+      <if test="bonusnoticeId != null" >
+        #{bonusnoticeId,jdbcType=INTEGER},
+      </if>
+      <if test="stuNum != null" >
+        #{stuNum,jdbcType=VARCHAR},
+      </if>
+      <if test="scindivinfoId != null" >
+        #{scindivinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="scappinfoId != null" >
+        #{scappinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="fileId != null" >
+        #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="isPassed != null" >
+        #{isPassed,jdbcType=TINYINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fund.po.ScholarshipappExample" resultType="java.lang.Integer" >
+    select count(*) from scholarshipapp
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update scholarshipapp
+    <set >
+      <if test="record.scholarshipappId != null" >
+        ScholarshipApp_Id = #{record.scholarshipappId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bonusnoticeId != null" >
+        BonusNotice_Id = #{record.bonusnoticeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stuNum != null" >
+        Stu_Num = #{record.stuNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scindivinfoId != null" >
+        ScIndivInfo_Id = #{record.scindivinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.scappinfoId != null" >
+        ScAppInfo_Id = #{record.scappinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileId != null" >
+        File_Id = #{record.fileId,jdbcType=INTEGER},
+      </if>
+      <if test="record.notes != null" >
+        Notes = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isPassed != null" >
+        Is_Passed = #{record.isPassed,jdbcType=TINYINT},
+      </if>
+      <if test="record.state != null" >
+        State = #{record.state,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update scholarshipapp
+    set ScholarshipApp_Id = #{record.scholarshipappId,jdbcType=INTEGER},
+      BonusNotice_Id = #{record.bonusnoticeId,jdbcType=INTEGER},
+      Stu_Num = #{record.stuNum,jdbcType=VARCHAR},
+      ScIndivInfo_Id = #{record.scindivinfoId,jdbcType=INTEGER},
+      ScAppInfo_Id = #{record.scappinfoId,jdbcType=INTEGER},
+      File_Id = #{record.fileId,jdbcType=INTEGER},
+      Notes = #{record.notes,jdbcType=VARCHAR},
+      Is_Passed = #{record.isPassed,jdbcType=TINYINT},
+      State = #{record.state,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fund.po.Scholarshipapp" >
+    update scholarshipapp
+    <set >
+      <if test="bonusnoticeId != null" >
+        BonusNotice_Id = #{bonusnoticeId,jdbcType=INTEGER},
+      </if>
+      <if test="stuNum != null" >
+        Stu_Num = #{stuNum,jdbcType=VARCHAR},
+      </if>
+      <if test="scindivinfoId != null" >
+        ScIndivInfo_Id = #{scindivinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="scappinfoId != null" >
+        ScAppInfo_Id = #{scappinfoId,jdbcType=INTEGER},
+      </if>
+      <if test="fileId != null" >
+        File_Id = #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="notes != null" >
+        Notes = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="isPassed != null" >
+        Is_Passed = #{isPassed,jdbcType=TINYINT},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=TINYINT},
+      </if>
+    </set>
+    where ScholarshipApp_Id = #{scholarshipappId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fund.po.Scholarshipapp" >
+    update scholarshipapp
+    set BonusNotice_Id = #{bonusnoticeId,jdbcType=INTEGER},
+      Stu_Num = #{stuNum,jdbcType=VARCHAR},
+      ScIndivInfo_Id = #{scindivinfoId,jdbcType=INTEGER},
+      ScAppInfo_Id = #{scappinfoId,jdbcType=INTEGER},
+      File_Id = #{fileId,jdbcType=INTEGER},
+      Notes = #{notes,jdbcType=VARCHAR},
+      Is_Passed = #{isPassed,jdbcType=TINYINT},
+      State = #{state,jdbcType=TINYINT}
+    where ScholarshipApp_Id = #{scholarshipappId,jdbcType=INTEGER}
+  </update>
+
+	<!-- 自定义resultMap -->
+	<resultMap id="CustomResultMap" type="com.fund.po.ScholarshipAppCustom" >
+    <id column="ScholarshipApp_Id" property="scholarshipappId" jdbcType="INTEGER" />
+    <result column="BonusNotice_Id" property="bonusnoticeId" jdbcType="INTEGER" />
+    <result column="Stu_Num" property="stuNum" jdbcType="VARCHAR" />
+    <result column="ScIndivInfo_Id" property="scindivinfoId" jdbcType="INTEGER" />
+    <result column="ScAppInfo_Id" property="scappinfoId" jdbcType="INTEGER" />
+    <result column="File_Id" property="fileId" jdbcType="INTEGER" />
+    <result column="Notes" property="notes" jdbcType="VARCHAR" />
+    <result column="Is_Passed" property="isPassed" jdbcType="TINYINT" />
+    <result column="State" property="state" jdbcType="TINYINT" />
+    
+    <association property="scAppInfo" javaType="com.fund.po.Scappinfo">
+    	<id column="ScAppInfo_Id" property="scappinfoId" jdbcType="INTEGER" />
+	    <result column="Description" property="description" jdbcType="VARCHAR" />
+	    <result column="Sc_Case" property="scCase" jdbcType="VARCHAR" />
+	    <result column="View_Class" property="viewClass" jdbcType="VARCHAR" />
+	    <result column="View_Institute" property="viewInstitute" jdbcType="VARCHAR" />
+	    <result column="View_Judge" property="viewJudge" jdbcType="VARCHAR" />
+	    <result column="Notes" property="notes" jdbcType="VARCHAR" />
+	    <result column="State" property="state" jdbcType="TINYINT" />
+    </association>
+    
+    <association property="scIndivInfo" javaType="com.fund.po.Scindivinfo">
+    	<id column="ScIndivInfo_Id" property="scindivinfoId" jdbcType="INTEGER" />
+	    <result column="Sc_Name" property="scName" jdbcType="VARCHAR" />
+	    <result column="Sc_Sex" property="scSex" jdbcType="TINYINT" />
+	    <result column="Sc_Birthday" property="scBirthday" jdbcType="TIMESTAMP" />
+	    <result column="Sc_StuId" property="scStuid" jdbcType="VARCHAR" />
+	    <result column="Institute" property="institute" jdbcType="VARCHAR" />
+	    <result column="Degrees" property="degrees" jdbcType="VARCHAR" />
+	    <result column="Major" property="major" jdbcType="VARCHAR" />
+	    <result column="Classes" property="classes" jdbcType="VARCHAR" />
+	    <result column="Nation" property="nation" jdbcType="VARCHAR" />
+	    <result column="Enrolled_Time" property="enrolledTime" jdbcType="TIMESTAMP" />
+	    <result column="Political_Status" property="politicalStatus" jdbcType="VARCHAR" />
+	    <result column="Aca_Score" property="acaScore" jdbcType="VARCHAR" />
+	    <result column="AllTest_Level" property="alltestLevel" jdbcType="VARCHAR" />
+	    <result column="Phone_Number" property="phoneNumber" jdbcType="VARCHAR" />
+	    <result column="Sc_Email" property="scEmail" jdbcType="VARCHAR" />
+	    <result column="Sc_Address" property="scAddress" jdbcType="VARCHAR" />
+	    <result column="Photo_Url" property="photoUrl" jdbcType="VARCHAR" />
+	    <result column="State" property="state" jdbcType="TINYINT" />
+    </association>
+  </resultMap>
+  
+  <!-- 自定义sql -->
+	<select id="selectScAppByAppId" resultMap="CustomResultMap" parameterType="int" >
+	    SELECT 
+		  * 
+		FROM
+		  scholarshipapp app,
+		  scindivinfo indivInfo,
+		  scappinfo appInfo 
+		WHERE app.`ScholarshipApp_Id` = #{appId} 
+		  AND indivInfo.`ScIndivInfo_Id` = app.`ScIndivInfo_Id`
+		  AND appInfo.`ScAppInfo_Id` = app.`ScAppInfo_Id`
+		  AND app.`State` = 1;
+  	</select>
+  	
+  	<select id="selectScAppsByBNId" resultMap="CustomResultMap" parameterType="hashmap" >
+	    SELECT 
+		  * 
+		FROM
+		  scholarshipapp app,
+		  scindivinfo indivInfo,
+		  scappinfo appInfo 
+		WHERE BonusNotice_Id = #{bNoticeId} 
+		  AND indivInfo.`ScIndivInfo_Id` = app.`ScIndivInfo_Id`
+		  AND appInfo.`ScAppInfo_Id` = app.`ScAppInfo_Id`
+		  AND app.`State` = 1
+		  ORDER BY ${order}
+		  LIMIT #{page.startPos},#{page.pageSize}
+  </select>
+  
+  <select id="selectUnverifiedScAppsByBNoticeId" resultMap="CustomResultMap" parameterType="hashmap" >
+	    SELECT 
+		  * 
+		FROM
+		  scholarshipapp app,
+		  scindivinfo indivInfo,
+		  scappinfo appInfo 
+		WHERE BonusNotice_Id = #{bNoticeId} 
+		  AND indivInfo.`ScIndivInfo_Id` = app.`ScIndivInfo_Id`
+		  AND appInfo.`ScAppInfo_Id` = app.`ScAppInfo_Id`
+		  AND app.`Is_Passed` = 0
+		  AND app.`State` = 1
+		  ORDER BY ${order}
+		  LIMIT #{page.startPos},#{page.pageSize}
+  </select>
+  
+  <select id="selectVerifiedScAppsByBNoticeId" resultMap="CustomResultMap" parameterType="hashmap" >
+	    SELECT 
+		  * 
+		FROM
+		  scholarshipapp app,
+		  scindivinfo indivInfo,
+		  scappinfo appInfo 
+		WHERE BonusNotice_Id = #{bNoticeId} 
+		  AND indivInfo.`ScIndivInfo_Id` = app.`ScIndivInfo_Id`
+		  AND appInfo.`ScAppInfo_Id` = app.`ScAppInfo_Id`
+		  AND app.`Is_Passed` > 0
+		  AND app.`State` = 1
+		  ORDER BY ${order}
+		  LIMIT #{page.startPos},#{page.pageSize}
+  </select>
+</mapper>

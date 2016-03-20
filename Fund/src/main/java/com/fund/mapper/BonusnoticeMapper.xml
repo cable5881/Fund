@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fund.mapper.BonusnoticeMapper" >
+  <resultMap id="BaseResultMap" type="com.fund.po.Bonusnotice" >
+    <id column="BonusNotice_Id" property="bonusnoticeId" jdbcType="INTEGER" />
+    <result column="Project_Id" property="projectId" jdbcType="INTEGER" />
+    <result column="Start_Date" property="startDate" jdbcType="TIMESTAMP" />
+    <result column="End_Date" property="endDate" jdbcType="TIMESTAMP" />
+    <result column="Judge_Way" property="judgeWay" jdbcType="TINYINT" />
+    <result column="Judge_State" property="judgeState" jdbcType="TINYINT" />
+    <result column="State" property="state" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BonusNotice_Id, Project_Id, Start_Date, End_Date, Judge_Way, Judge_State, State
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fund.po.BonusnoticeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from bonusnotice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bonusnotice
+    where BonusNotice_Id = #{bonusnoticeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bonusnotice
+    where BonusNotice_Id = #{bonusnoticeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fund.po.BonusnoticeExample" >
+    delete from bonusnotice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="bonusnoticeId" parameterType="com.fund.po.Bonusnotice" >
+    insert into bonusnotice (BonusNotice_Id, Project_Id, Start_Date, 
+      End_Date, Judge_Way, Judge_State, 
+      State)
+    values (#{bonusnoticeId,jdbcType=INTEGER}, #{projectId,jdbcType=INTEGER}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{judgeWay,jdbcType=TINYINT}, #{judgeState,jdbcType=TINYINT}, 
+      #{state,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="bonusnoticeId" parameterType="com.fund.po.Bonusnotice" >
+    insert into bonusnotice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bonusnoticeId != null" >
+        BonusNotice_Id,
+      </if>
+      <if test="projectId != null" >
+        Project_Id,
+      </if>
+      <if test="startDate != null" >
+        Start_Date,
+      </if>
+      <if test="endDate != null" >
+        End_Date,
+      </if>
+      <if test="judgeWay != null" >
+        Judge_Way,
+      </if>
+      <if test="judgeState != null" >
+        Judge_State,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bonusnoticeId != null" >
+        #{bonusnoticeId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="judgeWay != null" >
+        #{judgeWay,jdbcType=TINYINT},
+      </if>
+      <if test="judgeState != null" >
+        #{judgeState,jdbcType=TINYINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fund.po.BonusnoticeExample" resultType="java.lang.Integer" >
+    select count(*) from bonusnotice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bonusnotice
+    <set >
+      <if test="record.bonusnoticeId != null" >
+        BonusNotice_Id = #{record.bonusnoticeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null" >
+        Project_Id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.startDate != null" >
+        Start_Date = #{record.startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endDate != null" >
+        End_Date = #{record.endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.judgeWay != null" >
+        Judge_Way = #{record.judgeWay,jdbcType=TINYINT},
+      </if>
+      <if test="record.judgeState != null" >
+        Judge_State = #{record.judgeState,jdbcType=TINYINT},
+      </if>
+      <if test="record.state != null" >
+        State = #{record.state,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bonusnotice
+    set BonusNotice_Id = #{record.bonusnoticeId,jdbcType=INTEGER},
+      Project_Id = #{record.projectId,jdbcType=INTEGER},
+      Start_Date = #{record.startDate,jdbcType=TIMESTAMP},
+      End_Date = #{record.endDate,jdbcType=TIMESTAMP},
+      Judge_Way = #{record.judgeWay,jdbcType=TINYINT},
+      Judge_State = #{record.judgeState,jdbcType=TINYINT},
+      State = #{record.state,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fund.po.Bonusnotice" >
+    update bonusnotice
+    <set >
+      <if test="projectId != null" >
+        Project_Id = #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        Start_Date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null" >
+        End_Date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="judgeWay != null" >
+        Judge_Way = #{judgeWay,jdbcType=TINYINT},
+      </if>
+      <if test="judgeState != null" >
+        Judge_State = #{judgeState,jdbcType=TINYINT},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=TINYINT},
+      </if>
+    </set>
+    where BonusNotice_Id = #{bonusnoticeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fund.po.Bonusnotice" >
+    update bonusnotice
+    set Project_Id = #{projectId,jdbcType=INTEGER},
+      Start_Date = #{startDate,jdbcType=TIMESTAMP},
+      End_Date = #{endDate,jdbcType=TIMESTAMP},
+      Judge_Way = #{judgeWay,jdbcType=TINYINT},
+      Judge_State = #{judgeState,jdbcType=TINYINT},
+      State = #{state,jdbcType=TINYINT}
+    where BonusNotice_Id = #{bonusnoticeId,jdbcType=INTEGER}
+  </update>
+</mapper>

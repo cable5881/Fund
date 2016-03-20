@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fund.mapper.ProtocolMapper" >
+  <resultMap id="BaseResultMap" type="com.fund.po.Protocol" >
+    <id column="Protocol_Id" property="protocolId" jdbcType="INTEGER" />
+    <result column="File_Id" property="fileId" jdbcType="INTEGER" />
+    <result column="Is_Passed" property="isPassed" jdbcType="TINYINT" />
+    <result column="State" property="state" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Protocol_Id, File_Id, Is_Passed, State
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fund.po.ProtocolExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from protocol
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from protocol
+    where Protocol_Id = #{protocolId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from protocol
+    where Protocol_Id = #{protocolId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fund.po.ProtocolExample" >
+    delete from protocol
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fund.po.Protocol" >
+    insert into protocol (Protocol_Id, File_Id, Is_Passed, 
+      State)
+    values (#{protocolId,jdbcType=INTEGER}, #{fileId,jdbcType=INTEGER}, #{isPassed,jdbcType=TINYINT}, 
+      #{state,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="protocolId" parameterType="com.fund.po.Protocol" >
+    insert into protocol
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="protocolId != null" >
+        Protocol_Id,
+      </if>
+      <if test="fileId != null" >
+        File_Id,
+      </if>
+      <if test="isPassed != null" >
+        Is_Passed,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="protocolId != null" >
+        #{protocolId,jdbcType=INTEGER},
+      </if>
+      <if test="fileId != null" >
+        #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="isPassed != null" >
+        #{isPassed,jdbcType=TINYINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fund.po.ProtocolExample" resultType="java.lang.Integer" >
+    select count(*) from protocol
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update protocol
+    <set >
+      <if test="record.protocolId != null" >
+        Protocol_Id = #{record.protocolId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fileId != null" >
+        File_Id = #{record.fileId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isPassed != null" >
+        Is_Passed = #{record.isPassed,jdbcType=TINYINT},
+      </if>
+      <if test="record.state != null" >
+        State = #{record.state,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update protocol
+    set Protocol_Id = #{record.protocolId,jdbcType=INTEGER},
+      File_Id = #{record.fileId,jdbcType=INTEGER},
+      Is_Passed = #{record.isPassed,jdbcType=TINYINT},
+      State = #{record.state,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fund.po.Protocol" >
+    update protocol
+    <set >
+      <if test="fileId != null" >
+        File_Id = #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="isPassed != null" >
+        Is_Passed = #{isPassed,jdbcType=TINYINT},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=TINYINT},
+      </if>
+    </set>
+    where Protocol_Id = #{protocolId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fund.po.Protocol" >
+    update protocol
+    set File_Id = #{fileId,jdbcType=INTEGER},
+      Is_Passed = #{isPassed,jdbcType=TINYINT},
+      State = #{state,jdbcType=TINYINT}
+    where Protocol_Id = #{protocolId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,45 @@
+$(document).ready(function(){
+	$(".text-oldPwd-check").blur(function(){
+		if($.trim($(".text-oldPwd-land").val())==""){
+			$(".td-oldPwd-info").html("旧密码不能为空！");
+		}
+		if($.trim($(".text-oldPwd-land").val())!=""){
+			$(".td-oldPwd-info").html("");
+		}  
+	});
+});
+$(document).ready(function(){
+	$(".text-newPwd-check").blur(function(){
+		if($.trim($(".text-newPwd-land").val())==""){
+			$(".td-newPwd-info").html("新密码不能为空！");
+		}
+		if($.trim($(".text-newPwd-land").val())!=""){
+			$(".td-newPwd-info").html("");
+		}  
+	});
+});
+$(document).ready(function(){
+	$(".text-reNewPwd-check").blur(function(){
+		if($.trim($(".text-reNewPwd-land").val())==""){
+			$(".td-reNewPwd-info").html("新密码不能为空！");
+		}
+		if(($.trim($(".text-reNewPwd-land").val())!="")&&
+				(($.trim($(".text-reNewPwd-land").val()))!=($.trim($(".text-newPwd-land").val())))){
+			$(".td-reNewPwd-info").html("两次输入的密码不相同！");
+		}
+		if(($.trim($(".text-reNewPwd-land").val())!="")&&
+				(($.trim($(".text-reNewPwd-land").val()))==($.trim($(".text-newPwd-land").val())))){
+			$(".td-reNewPwd-info").html("");
+		}
+	});
+});
+$(document).ready(function(){
+	$(".text-veriCode-check").blur(function(){
+		if($.trim($(".text-veriCode-land").val())==""){
+			$(".td-veriCode-info").html("验证码不能为空！");
+		}
+		if($.trim($(".text-veriCode-land").val())!=""){
+			$(".td-veriCode-info").html("");
+		}  
+	});
+});

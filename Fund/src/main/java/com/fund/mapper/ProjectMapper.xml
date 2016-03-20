@@ -1,0 +1,718 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fund.mapper.ProjectMapper" >
+	
+	<!-- <cache type="org.mybatis.caches.ehcache.EhcacheCache"></cache> -->
+
+  <resultMap id="BaseResultMap" type="com.fund.po.custom.ProjectCustom" >
+    <id column="Project_Id" property="projectId" jdbcType="INTEGER" />
+    <result column="Project_Num" property="projectNum" jdbcType="VARCHAR" />
+    <result column="DonationMode_Id" property="donationmodeId" jdbcType="INTEGER" />
+    <result column="Project_Name" property="projectName" jdbcType="VARCHAR" />
+    <result column="FundType_Id" property="fundtypeId" jdbcType="INTEGER" />
+    <result column="User_Id" property="userId" jdbcType="INTEGER" />
+    <result column="Leader" property="leader" jdbcType="VARCHAR" />
+    <result column="SetUp_Time" property="setupTime" jdbcType="TIMESTAMP" />
+    <result column="Purpose" property="purpose" jdbcType="VARCHAR" />
+    <result column="Is_Unit" property="isUnit" jdbcType="TINYINT" />
+    <result column="BenificiaryUnit_Id" property="benificiaryunitId" jdbcType="INTEGER" />
+    <result column="BenificiaryContact_Id" property="benificiarycontactId" jdbcType="INTEGER" />
+    <result column="Donor_Id" property="donorId" jdbcType="INTEGER" />
+    <result column="DonationUnit_Id" property="donationunitId" jdbcType="INTEGER" />
+    <result column="DonationContact_Id" property="donationcontactId" jdbcType="INTEGER" />
+    <result column="DonationUser_Id" property="donationuserId" jdbcType="INTEGER" />
+    <result column="Protocol_Id" property="protocolId" jdbcType="INTEGER" />
+    <result column="MoneyCheck_Id" property="moneycheckId" jdbcType="INTEGER" />
+    <result column="Publication_State" property="publicationState" jdbcType="TINYINT" />
+    <result column="AppForm_Id" property="appformId" jdbcType="INTEGER" />
+    <result column="Notes" property="notes" jdbcType="VARCHAR" />
+    <result column="Is_Passed" property="isPassed" jdbcType="TINYINT" />
+    <result column="State" property="state" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Project_Id, Project_Num, DonationMode_Id, Project_Name, FundType_Id, User_Id, Leader, 
+    SetUp_Time, Purpose, Is_Unit, BenificiaryUnit_Id, BenificiaryContact_Id, Donor_Id, 
+    DonationUnit_Id, DonationContact_Id, DonationUser_Id, Protocol_Id, MoneyCheck_Id, 
+    Publication_State, AppForm_Id, Notes, Is_Passed, State
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fund.po.ProjectExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from project
+    where Project_Id = #{projectId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from project
+    where Project_Id = #{projectId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fund.po.ProjectExample" >
+    delete from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fund.po.custom.ProjectCustom" >
+    insert into project (Project_Id, Project_Num, DonationMode_Id, 
+      Project_Name, FundType_Id, User_Id, 
+      Leader, SetUp_Time, Purpose, 
+      Is_Unit, BenificiaryUnit_Id, BenificiaryContact_Id, 
+      Donor_Id, DonationUnit_Id, DonationContact_Id, 
+      DonationUser_Id, Protocol_Id, MoneyCheck_Id, 
+      Publication_State, AppForm_Id, Notes, 
+      Is_Passed, State)
+    values (#{projectId,jdbcType=INTEGER}, #{projectNum,jdbcType=VARCHAR}, #{donationmodeId,jdbcType=INTEGER}, 
+      #{projectName,jdbcType=VARCHAR}, #{fundtypeId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{leader,jdbcType=VARCHAR}, #{setupTime,jdbcType=TIMESTAMP}, #{purpose,jdbcType=VARCHAR}, 
+      #{isUnit,jdbcType=TINYINT}, #{benificiaryunitId,jdbcType=INTEGER}, #{benificiarycontactId,jdbcType=INTEGER}, 
+      #{donorId,jdbcType=INTEGER}, #{donationunitId,jdbcType=INTEGER}, #{donationcontactId,jdbcType=INTEGER}, 
+      #{donationuserId,jdbcType=INTEGER}, #{protocolId,jdbcType=INTEGER}, #{moneycheckId,jdbcType=INTEGER}, 
+      #{publicationState,jdbcType=TINYINT}, #{appformId,jdbcType=INTEGER}, #{notes,jdbcType=VARCHAR}, 
+      #{isPassed,jdbcType=TINYINT}, #{state,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="projectId" parameterType="com.fund.po.custom.ProjectCustom" >
+    insert into project
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="projectId != null" >
+        Project_Id,
+      </if>
+      <if test="projectNum != null" >
+        Project_Num,
+      </if>
+      <if test="donationmodeId != null" >
+        DonationMode_Id,
+      </if>
+      <if test="projectName != null" >
+        Project_Name,
+      </if>
+      <if test="fundtypeId != null" >
+        FundType_Id,
+      </if>
+      <if test="userId != null" >
+        User_Id,
+      </if>
+      <if test="leader != null" >
+        Leader,
+      </if>
+      <if test="setupTime != null" >
+        SetUp_Time,
+      </if>
+      <if test="purpose != null" >
+        Purpose,
+      </if>
+      <if test="isUnit != null" >
+        Is_Unit,
+      </if>
+      <if test="benificiaryunitId != null" >
+        BenificiaryUnit_Id,
+      </if>
+      <if test="benificiarycontactId != null" >
+        BenificiaryContact_Id,
+      </if>
+      <if test="donorId != null" >
+        Donor_Id,
+      </if>
+      <if test="donationunitId != null" >
+        DonationUnit_Id,
+      </if>
+      <if test="donationcontactId != null" >
+        DonationContact_Id,
+      </if>
+      <if test="donationuserId != null" >
+        DonationUser_Id,
+      </if>
+      <if test="protocolId != null" >
+        Protocol_Id,
+      </if>
+      <if test="moneycheckId != null" >
+        MoneyCheck_Id,
+      </if>
+      <if test="publicationState != null" >
+        Publication_State,
+      </if>
+      <if test="appformId != null" >
+        AppForm_Id,
+      </if>
+      <if test="notes != null" >
+        Notes,
+      </if>
+      <if test="isPassed != null" >
+        Is_Passed,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="projectId != null" >
+        #{projectId,jdbcType=INTEGER},
+      </if>
+      <if test="projectNum != null" >
+        #{projectNum,jdbcType=VARCHAR},
+      </if>
+      <if test="donationmodeId != null" >
+        #{donationmodeId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="fundtypeId != null" >
+        #{fundtypeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="leader != null" >
+        #{leader,jdbcType=VARCHAR},
+      </if>
+      <if test="setupTime != null" >
+        #{setupTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="purpose != null" >
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="isUnit != null" >
+        #{isUnit,jdbcType=TINYINT},
+      </if>
+      <if test="benificiaryunitId != null" >
+        #{benificiaryunitId,jdbcType=INTEGER},
+      </if>
+      <if test="benificiarycontactId != null" >
+        #{benificiarycontactId,jdbcType=INTEGER},
+      </if>
+      <if test="donorId != null" >
+        #{donorId,jdbcType=INTEGER},
+      </if>
+      <if test="donationunitId != null" >
+        #{donationunitId,jdbcType=INTEGER},
+      </if>
+      <if test="donationcontactId != null" >
+        #{donationcontactId,jdbcType=INTEGER},
+      </if>
+      <if test="donationuserId != null" >
+        #{donationuserId,jdbcType=INTEGER},
+      </if>
+      <if test="protocolId != null" >
+        #{protocolId,jdbcType=INTEGER},
+      </if>
+      <if test="moneycheckId != null" >
+        #{moneycheckId,jdbcType=INTEGER},
+      </if>
+      <if test="publicationState != null" >
+        #{publicationState,jdbcType=TINYINT},
+      </if>
+      <if test="appformId != null" >
+        #{appformId,jdbcType=INTEGER},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="isPassed != null" >
+        #{isPassed,jdbcType=TINYINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fund.po.ProjectExample" resultType="java.lang.Integer" >
+    select count(*) from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update project
+    <set >
+      <if test="record.projectId != null" >
+        Project_Id = #{record.projectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectNum != null" >
+        Project_Num = #{record.projectNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.donationmodeId != null" >
+        DonationMode_Id = #{record.donationmodeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectName != null" >
+        Project_Name = #{record.projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fundtypeId != null" >
+        FundType_Id = #{record.fundtypeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        User_Id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.leader != null" >
+        Leader = #{record.leader,jdbcType=VARCHAR},
+      </if>
+      <if test="record.setupTime != null" >
+        SetUp_Time = #{record.setupTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.purpose != null" >
+        Purpose = #{record.purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isUnit != null" >
+        Is_Unit = #{record.isUnit,jdbcType=TINYINT},
+      </if>
+      <if test="record.benificiaryunitId != null" >
+        BenificiaryUnit_Id = #{record.benificiaryunitId,jdbcType=INTEGER},
+      </if>
+      <if test="record.benificiarycontactId != null" >
+        BenificiaryContact_Id = #{record.benificiarycontactId,jdbcType=INTEGER},
+      </if>
+      <if test="record.donorId != null" >
+        Donor_Id = #{record.donorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.donationunitId != null" >
+        DonationUnit_Id = #{record.donationunitId,jdbcType=INTEGER},
+      </if>
+      <if test="record.donationcontactId != null" >
+        DonationContact_Id = #{record.donationcontactId,jdbcType=INTEGER},
+      </if>
+      <if test="record.donationuserId != null" >
+        DonationUser_Id = #{record.donationuserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.protocolId != null" >
+        Protocol_Id = #{record.protocolId,jdbcType=INTEGER},
+      </if>
+      <if test="record.moneycheckId != null" >
+        MoneyCheck_Id = #{record.moneycheckId,jdbcType=INTEGER},
+      </if>
+      <if test="record.publicationState != null" >
+        Publication_State = #{record.publicationState,jdbcType=TINYINT},
+      </if>
+      <if test="record.appformId != null" >
+        AppForm_Id = #{record.appformId,jdbcType=INTEGER},
+      </if>
+      <if test="record.notes != null" >
+        Notes = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isPassed != null" >
+        Is_Passed = #{record.isPassed,jdbcType=TINYINT},
+      </if>
+      <if test="record.state != null" >
+        State = #{record.state,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update project
+    set Project_Id = #{record.projectId,jdbcType=INTEGER},
+      Project_Num = #{record.projectNum,jdbcType=VARCHAR},
+      DonationMode_Id = #{record.donationmodeId,jdbcType=INTEGER},
+      Project_Name = #{record.projectName,jdbcType=VARCHAR},
+      FundType_Id = #{record.fundtypeId,jdbcType=INTEGER},
+      User_Id = #{record.userId,jdbcType=INTEGER},
+      Leader = #{record.leader,jdbcType=VARCHAR},
+      SetUp_Time = #{record.setupTime,jdbcType=TIMESTAMP},
+      Purpose = #{record.purpose,jdbcType=VARCHAR},
+      Is_Unit = #{record.isUnit,jdbcType=TINYINT},
+      BenificiaryUnit_Id = #{record.benificiaryunitId,jdbcType=INTEGER},
+      BenificiaryContact_Id = #{record.benificiarycontactId,jdbcType=INTEGER},
+      Donor_Id = #{record.donorId,jdbcType=INTEGER},
+      DonationUnit_Id = #{record.donationunitId,jdbcType=INTEGER},
+      DonationContact_Id = #{record.donationcontactId,jdbcType=INTEGER},
+      DonationUser_Id = #{record.donationuserId,jdbcType=INTEGER},
+      Protocol_Id = #{record.protocolId,jdbcType=INTEGER},
+      MoneyCheck_Id = #{record.moneycheckId,jdbcType=INTEGER},
+      Publication_State = #{record.publicationState,jdbcType=TINYINT},
+      AppForm_Id = #{record.appformId,jdbcType=INTEGER},
+      Notes = #{record.notes,jdbcType=VARCHAR},
+      Is_Passed = #{record.isPassed,jdbcType=TINYINT},
+      State = #{record.state,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fund.po.custom.ProjectCustom" >
+     update project
+    <set >
+      <if test="projectNum != null" >
+        Project_Num = #{projectNum,jdbcType=VARCHAR},
+      </if>
+      <if test="donationmodeId != null" >
+        DonationMode_Id = #{donationmodeId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null" >
+        Project_Name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="fundtypeId != null" >
+        FundType_Id = #{fundtypeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        User_Id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="leader != null" >
+        Leader = #{leader,jdbcType=VARCHAR},
+      </if>
+      <if test="setupTime != null" >
+        SetUp_Time = #{setupTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="purpose != null" >
+        Purpose = #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="isUnit != null" >
+        Is_Unit = #{isUnit,jdbcType=TINYINT},
+      </if>
+      <if test="benificiaryunitId != null" >
+        BenificiaryUnit_Id = #{benificiaryunitId,jdbcType=INTEGER},
+      </if>
+      <if test="benificiarycontactId != null" >
+        BenificiaryContact_Id = #{benificiarycontactId,jdbcType=INTEGER},
+      </if>
+      <if test="donorId != null" >
+        Donor_Id = #{donorId,jdbcType=INTEGER},
+      </if>
+      <if test="donationunitId != null" >
+        DonationUnit_Id = #{donationunitId,jdbcType=INTEGER},
+      </if>
+      <if test="donationcontactId != null" >
+        DonationContact_Id = #{donationcontactId,jdbcType=INTEGER},
+      </if>
+      <if test="donationuserId != null" >
+        DonationUser_Id = #{donationuserId,jdbcType=INTEGER},
+      </if>
+      <if test="protocolId != null" >
+        Protocol_Id = #{protocolId,jdbcType=INTEGER},
+      </if>
+      <if test="moneycheckId != null" >
+        MoneyCheck_Id = #{moneycheckId,jdbcType=INTEGER},
+      </if>
+      <if test="publicationState != null" >
+        Publication_State = #{publicationState,jdbcType=TINYINT},
+      </if>
+      <if test="appformId != null" >
+        AppForm_Id = #{appformId,jdbcType=INTEGER},
+      </if>
+      <if test="notes != null" >
+        Notes = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="isPassed != null" >
+        Is_Passed = #{isPassed,jdbcType=TINYINT},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=TINYINT},
+      </if>
+    </set>
+    where Project_Id = #{projectId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fund.po.custom.ProjectCustom" >
+   update project
+    set Project_Num = #{projectNum,jdbcType=VARCHAR},
+      DonationMode_Id = #{donationmodeId,jdbcType=INTEGER},
+      Project_Name = #{projectName,jdbcType=VARCHAR},
+      FundType_Id = #{fundtypeId,jdbcType=INTEGER},
+      User_Id = #{userId,jdbcType=INTEGER},
+      Leader = #{leader,jdbcType=VARCHAR},
+      SetUp_Time = #{setupTime,jdbcType=TIMESTAMP},
+      Purpose = #{purpose,jdbcType=VARCHAR},
+      Is_Unit = #{isUnit,jdbcType=TINYINT},
+      BenificiaryUnit_Id = #{benificiaryunitId,jdbcType=INTEGER},
+      BenificiaryContact_Id = #{benificiarycontactId,jdbcType=INTEGER},
+      Donor_Id = #{donorId,jdbcType=INTEGER},
+      DonationUnit_Id = #{donationunitId,jdbcType=INTEGER},
+      DonationContact_Id = #{donationcontactId,jdbcType=INTEGER},
+      DonationUser_Id = #{donationuserId,jdbcType=INTEGER},
+      Protocol_Id = #{protocolId,jdbcType=INTEGER},
+      MoneyCheck_Id = #{moneycheckId,jdbcType=INTEGER},
+      Publication_State = #{publicationState,jdbcType=TINYINT},
+      AppForm_Id = #{appformId,jdbcType=INTEGER},
+      Notes = #{notes,jdbcType=VARCHAR},
+      Is_Passed = #{isPassed,jdbcType=TINYINT},
+      State = #{state,jdbcType=TINYINT}
+    where Project_Id = #{projectId,jdbcType=INTEGER}
+  </update>
+  
+<!-- 自定义ColumnList -->
+	<sql id="Protocol_Column_List" >
+    	Protocol_Id, File_Id, Is_Passed passedState, State
+	</sql>
+
+<!-- 自定义resultMap -->
+<resultMap id="protocolResultMap" type="com.fund.po.custom.ProjectCustom" >
+  	<id column="Project_Id" property="projectId" jdbcType="INTEGER" />
+    <result column="Project_Num" property="projectNum" jdbcType="VARCHAR" />
+    <result column="Project_Name" property="projectName" jdbcType="VARCHAR" />
+    <result column="SetUp_Time" property="setupTime" jdbcType="TIMESTAMP" />
+    <result column="Protocol_Id" property="protocolId" jdbcType="INTEGER" />
+    <result column="Leader" property="leader" jdbcType="VARCHAR" />
+    <result column="AppForm_Id" property="appformId" jdbcType="INTEGER" />
+    <result column="Is_Passed" property="isPassed" jdbcType="TINYINT" />
+    <result column="State" property="state" jdbcType="TINYINT" />
+    <result column="User_Id" property="userId" jdbcType="INTEGER" />
+    
+    <association property="protocol" javaType="com.fund.po.Protocol">
+    	<id column="Protocol_Id" property="protocolId" jdbcType="INTEGER" />
+    	<result column="File_Id" property="fileId" jdbcType="INTEGER" />
+    	<result column="passedState" property="isPassed" jdbcType="TINYINT" />
+   		<result column="State" property="state" jdbcType="TINYINT" />
+    </association>
+  </resultMap>
+  
+  <resultMap id="bonusResultMap" type="com.fund.po.custom.ProjectCustom" >
+  	<id column="Project_Id" property="projectId" jdbcType="INTEGER" />
+    <result column="Project_Num" property="projectNum" jdbcType="VARCHAR" />
+    <result column="Project_Name" property="projectName" jdbcType="VARCHAR" />
+    <result column="SetUp_Time" property="setupTime" jdbcType="TIMESTAMP" />
+    <result column="Is_Passed" property="isPassed" jdbcType="TINYINT" />
+    <result column="State" property="state" jdbcType="TINYINT" />
+    <result column="User_Id" property="userId" jdbcType="INTEGER" />
+    
+    <association property="bonusNotice" javaType="com.fund.po.Bonusnotice">
+    	<id column="BonusNotice_Id" property="bonusnoticeId" jdbcType="INTEGER" />
+	    <result column="Project_Id" property="projectId" jdbcType="INTEGER" />
+	    <result column="Start_Date" property="startDate" jdbcType="TIMESTAMP" />
+	    <result column="End_Date" property="endDate" jdbcType="TIMESTAMP" />
+	    <result column="Judge_Way" property="judgeWay" jdbcType="TINYINT" />
+	    <result column="Judge_State" property="judgeState" jdbcType="TINYINT" />
+	    <result column="State" property="state" jdbcType="TINYINT" />
+    </association>
+  </resultMap>
+  <resultMap id="moneyResultMap" type="com.fund.po.custom.ProjectCustom" >
+  	<id column="Project_Id" property="projectId" jdbcType="INTEGER" />
+    <result column="Project_Num" property="projectNum" jdbcType="VARCHAR" />
+    <result column="Project_Name" property="projectName" jdbcType="VARCHAR" />
+    <result column="SetUp_Time" property="setupTime" jdbcType="TIMESTAMP" />
+    <result column="AppForm_Id" property="appformId" jdbcType="INTEGER" />
+    <result column="Is_Passed" property="isPassed" jdbcType="TINYINT" />
+    <result column="State" property="state" jdbcType="TINYINT" />
+    <result column="User_Id" property="userId" jdbcType="INTEGER" />
+    
+    <association property="moneyCheck" javaType="com.fund.po.MoneyCheckCustom">
+    	<id column="MoneyCheck_Id" property="moneycheckId" jdbcType="INTEGER" />
+	    <result column="Money_In_Count" property="moneyInCount" jdbcType="DOUBLE" />
+	    <result column="Money_Out_Count" property="moneyOutCount" jdbcType="DOUBLE" />
+	    <result column="MoneyState" property="moneystate" jdbcType="TINYINT" />
+	    <result column="State" property="state" jdbcType="TINYINT" />
+    </association>
+     <association property="protocol" javaType="com.fund.po.Protocol">
+    	<id column="Protocol_Id" property="protocolId" jdbcType="INTEGER" />
+    	<result column="File_Id" property="fileId" jdbcType="INTEGER" />
+    	<result column="passedState" property="isPassed" jdbcType="TINYINT" />
+   		<result column="State" property="state" jdbcType="TINYINT" />
+    </association>
+     <association property="donationMode" javaType="com.fund.po.DonationModeCustom">
+    	<id column="DonationMode_Id" property="donationmodeId" jdbcType="INTEGER" />
+	    <result column="Real_Estate" property="realEstate" jdbcType="TINYINT" />
+	    <result column="Is_OneTime" property="isOnetime" jdbcType="TINYINT" />
+	    <result column="Amount" property="amount" jdbcType="DOUBLE" />
+	    <result column="CurrencyType_Id" property="currencytypeId" jdbcType="INTEGER" />
+	    <result column="Form" property="form" jdbcType="TINYINT" />
+	    <result column="Fund_Principal" property="fundPrincipal" jdbcType="VARCHAR" />
+	    <result column="Execute_Time" property="executeTime" jdbcType="TIMESTAMP" />
+	    <result column="Span" property="span" jdbcType="INTEGER" />
+	    <result column="State" property="state" jdbcType="TINYINT" />
+    </association>
+  </resultMap>
+<!-- 自定义resultMap -->
+
+	<!-- 自定义sql -->
+	<select id="selectProjectsByUid" resultMap="BaseResultMap" parameterType="hashmap" >
+   		SELECT 
+		  <include refid="Base_Column_List" />  
+		FROM
+		  project 
+		WHERE user_id = #{userId} AND state = 1
+		ORDER BY ${order} 
+		LIMIT #{page.startPos},#{page.pageSize}  
+  	</select>
+  	<select id="selectAllProjects" resultMap="BaseResultMap" parameterType="hashmap" >
+    	SELECT 
+		  <include refid="Base_Column_List" /> 
+		FROM
+		  project 
+		WHERE state = 1 
+		ORDER BY ${order} 
+		LIMIT #{page.startPos},#{page.pageSize}  
+  	</select>
+  	<select id="selectUnverifiedProtocolProjects" resultMap="protocolResultMap" parameterType="hashmap" >
+		SELECT 
+		  project.*,
+		  protocol.Protocol_Id,
+		  protocol.File_Id,
+		  protocol.Is_Passed passedState,
+		  protocol.State 
+		FROM
+		  project,
+		  protocol 
+		WHERE project.`State` = 1 
+		  AND project.`Is_Passed` = 2 
+		  AND protocol.`Protocol_Id` = project.`Protocol_Id` 
+		  AND protocol.`Is_Passed` = 0 
+		ORDER BY project.setUp_time DESC 
+		LIMIT #{page.startPos},#{page.pageSize} 
+  	</select>
+  	<select id="selectVerifiedProtocolProjects" resultMap="protocolResultMap" parameterType="hashmap" >
+		SELECT
+			project.*,
+			protocol.Protocol_Id,
+		    protocol.File_Id,
+		    protocol.Is_Passed passedState,
+		    protocol.State 
+		FROM
+			project,
+			protocol
+		WHERE project.`State` = 1
+			AND project.`Is_Passed` = 2 
+			AND protocol.`Protocol_Id` = project.`Protocol_Id`
+			AND protocol.`Is_Passed` > 0
+		ORDER BY project.setUp_time desc
+		LIMIT #{page.startPos},#{page.pageSize} 
+  	</select>
+  	<select id="selectBonusProjectsByUid" resultMap="bonusResultMap" parameterType="hashmap" >
+   		SELECT 
+		  * 
+		FROM
+		  project p 
+		  INNER JOIN bonusNotice b1 
+		    ON b1.`Start_Date` = 
+		    (SELECT 
+		      MAX(Start_Date) 
+		    FROM
+		      bonusNotice b2 
+		    WHERE p.`Project_Id` = b2.`Project_Id`) 
+		WHERE p.`User_Id` = #{userId} 
+		  AND p.`State` = 1
+		ORDER BY p.setUp_time DESC
+		LIMIT #{page.startPos},#{page.pageSize}
+  	</select>
+  	<select id="selectVerifiedProjects" resultMap="BaseResultMap" parameterType="hashmap" >
+    	SELECT 
+		  * 
+		FROM
+		  project 
+		WHERE is_passed > 1 
+		  AND state = 1 
+		ORDER BY setUp_time DESC 
+		LIMIT #{page.startPos},#{page.pageSize}  
+  	</select>
+  	<select id="selectUnverifiedProjects" resultMap="BaseResultMap" parameterType="hashmap" >
+    	SELECT 
+		  * 
+		FROM
+		  project 
+		WHERE is_passed = 1 
+		  AND state = 1 
+		ORDER BY setUp_time DESC 
+		LIMIT #{page.startPos},#{page.pageSize}  
+  	</select>
+  	<select id="selectMoneyProjects" resultMap="moneyResultMap" parameterType="hashmap">
+	  	SELECT 
+		  p.*,
+		  d.*,
+		  m.*,
+		  ptcl.* 
+		FROM
+		  project p 
+		  LEFT JOIN moneyCheck m 
+		    ON p.`MoneyCheck_Id` = m.`MoneyCheck_Id` 
+		  LEFT JOIN donationMode d 
+		    ON p.`DonationMode_Id` = d.`DonationMode_Id` 
+		  LEFT JOIN protocol ptcl 
+		    ON p.`Protocol_Id` = ptcl.`Protocol_Id` 
+		    AND ptcl.`State` = 1 
+		WHERE p.`State` = 1 
+		  AND p.`Is_Passed` = 2 
+		ORDER BY p.`SetUp_Time` DESC   
+		LIMIT #{page.startPos},#{page.pageSize}
+  	</select>
+  	<select id="selectProjectsByDid" resultMap="BaseResultMap" parameterType="hashmap" >
+   		SELECT 
+		  <include refid="Base_Column_List" />  
+		FROM
+		  project 
+		WHERE DonationUser_Id = #{donationuserId} 
+		  AND state = 1
+		ORDER BY ${order} 
+		LIMIT #{page.startPos},#{page.pageSize}  
+  	</select>
+  	<select id="selectByExampleCustom" resultMap="BaseResultMap" parameterType="com.fund.po.ProjectExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from project
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+<!-- 自定义sql -->
+</mapper>

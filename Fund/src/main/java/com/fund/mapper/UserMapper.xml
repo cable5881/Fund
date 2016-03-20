@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fund.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.fund.po.User" >
+    <id column="User_Id" property="userId" jdbcType="INTEGER" />
+    <result column="Username" property="username" jdbcType="VARCHAR" />
+    <result column="Real_Name" property="realName" jdbcType="VARCHAR" />
+    <result column="Password" property="password" jdbcType="VARCHAR" />
+    <result column="Position_Id" property="positionId" jdbcType="INTEGER" />
+    <result column="State" property="state" jdbcType="BIT" />
+  </resultMap>
+  
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    User_Id, Username, Real_Name, Password, Position_Id, State
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fund.po.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where User_Id = #{userId,jdbcType=INTEGER}
+  </select> 
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where User_Id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fund.po.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fund.po.User" >
+    insert into user (User_Id, Username, Real_Name, 
+      Password, Position_Id, State
+      )
+    values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{positionId,jdbcType=INTEGER}, #{state,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fund.po.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        User_Id,
+      </if>
+      <if test="username != null" >
+        Username,
+      </if>
+      <if test="realName != null" >
+        Real_Name,
+      </if>
+      <if test="password != null" >
+        Password,
+      </if>
+      <if test="positionId != null" >
+        Position_Id,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="positionId != null" >
+        #{positionId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fund.po.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="com.fund.po.User" >
+    update user
+    <set >
+      <if test="record.userId != null" >
+        User_Id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null" >
+        Username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realName != null" >
+        Real_Name = #{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        Password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.positionId != null" >
+        Position_Id = #{record.positionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null" >
+        State = #{record.state,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="com.fund.po.UserExample" >
+    update user
+    set User_Id = #{record.userId,jdbcType=INTEGER},
+      Username = #{record.username,jdbcType=VARCHAR},
+      Real_Name = #{record.realName,jdbcType=VARCHAR},
+      Password = #{record.password,jdbcType=VARCHAR},
+      Position_Id = #{record.positionId,jdbcType=INTEGER},
+      State = #{record.state,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fund.po.User" >
+    update user
+    <set >
+      <if test="username != null" >
+        Username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        Real_Name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        Password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="positionId != null" >
+        Position_Id = #{positionId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=BIT},
+      </if>
+    </set>
+    where User_Id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fund.po.User" >
+    update user
+    set Username = #{username,jdbcType=VARCHAR},
+      Real_Name = #{realName,jdbcType=VARCHAR},
+      Password = #{password,jdbcType=VARCHAR},
+      Position_Id = #{positionId,jdbcType=INTEGER},
+      State = #{state,jdbcType=BIT}
+    where User_Id = #{userId,jdbcType=INTEGER}
+  </update>
+
+<!-- 自定义sql语句 -->
+<select id="selectUsersByLevel" resultMap="PositionResultMap" parameterType="hashmap" >
+    select 
+    	u.*,p.*
+    From user u,position p
+    WHERE p.level = #{level}
+		AND u.position_Id = p.position_Id
+  		AND u.State = 1 
+  	ORDER BY ${order}
+  	LIMIT #{page.startPos},#{page.pageSize} 
+  </select>
+  
+ <!-- 自定义ResulMap -->
+ <resultMap id="PositionResultMap" type="com.fund.po.UserCustom" >
+    <id column="User_Id" property="userId" jdbcType="INTEGER" />
+    <result column="Username" property="username" jdbcType="VARCHAR" />
+    <result column="Real_Name" property="realName" jdbcType="VARCHAR" />
+    <result column="Password" property="password" jdbcType="VARCHAR" />
+    <result column="Position_Id" property="positionId" jdbcType="INTEGER" />
+    <result column="State" property="state" jdbcType="BIT" />
+    
+    <association property="position" javaType="com.fund.po.Position">
+    	<id column="Position_Id" property="positionId" jdbcType="INTEGER" />
+	    <result column="Position_Name" property="positionName" jdbcType="VARCHAR" />
+	    <result column="Level" property="level" jdbcType="INTEGER" />
+	    <result column="State" property="state" jdbcType="BIT" />
+    </association>
+  </resultMap>
+
+</mapper>

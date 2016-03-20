@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fund.mapper.DonationunitMapper" >
+  <resultMap id="BaseResultMap" type="com.fund.po.Donationunit" >
+    <id column="DonationUnit_Id" property="donationunitId" jdbcType="INTEGER" />
+    <result column="DU_Name" property="duName" jdbcType="VARCHAR" />
+    <result column="Address" property="address" jdbcType="VARCHAR" />
+    <result column="Zip_Code" property="zipCode" jdbcType="VARCHAR" />
+    <result column="OfficePhone" property="officephone" jdbcType="VARCHAR" />
+    <result column="MobilePhone" property="mobilephone" jdbcType="VARCHAR" />
+    <result column="WebsiteURL" property="websiteurl" jdbcType="VARCHAR" />
+    <result column="Fax" property="fax" jdbcType="VARCHAR" />
+    <result column="DU_Email" property="duEmail" jdbcType="VARCHAR" />
+    <result column="DonationContact_Id" property="donationcontactId" jdbcType="INTEGER" />
+    <result column="Notes" property="notes" jdbcType="VARCHAR" />
+    <result column="State" property="state" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    DonationUnit_Id, DU_Name, Address, Zip_Code, OfficePhone, MobilePhone, WebsiteURL, 
+    Fax, DU_Email, DonationContact_Id, Notes, State
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fund.po.DonationunitExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from donationunit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from donationunit
+    where DonationUnit_Id = #{donationunitId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from donationunit
+    where DonationUnit_Id = #{donationunitId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fund.po.DonationunitExample" >
+    delete from donationunit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fund.po.Donationunit" >
+    insert into donationunit (DonationUnit_Id, DU_Name, Address, 
+      Zip_Code, OfficePhone, MobilePhone, 
+      WebsiteURL, Fax, DU_Email, 
+      DonationContact_Id, Notes, State
+      )
+    values (#{donationunitId,jdbcType=INTEGER}, #{duName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{zipCode,jdbcType=VARCHAR}, #{officephone,jdbcType=VARCHAR}, #{mobilephone,jdbcType=VARCHAR}, 
+      #{websiteurl,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, #{duEmail,jdbcType=VARCHAR}, 
+      #{donationcontactId,jdbcType=INTEGER}, #{notes,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="donationunitId" parameterType="com.fund.po.Donationunit" >
+    insert into donationunit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="donationunitId != null" >
+        DonationUnit_Id,
+      </if>
+      <if test="duName != null" >
+        DU_Name,
+      </if>
+      <if test="address != null" >
+        Address,
+      </if>
+      <if test="zipCode != null" >
+        Zip_Code,
+      </if>
+      <if test="officephone != null" >
+        OfficePhone,
+      </if>
+      <if test="mobilephone != null" >
+        MobilePhone,
+      </if>
+      <if test="websiteurl != null" >
+        WebsiteURL,
+      </if>
+      <if test="fax != null" >
+        Fax,
+      </if>
+      <if test="duEmail != null" >
+        DU_Email,
+      </if>
+      <if test="donationcontactId != null" >
+        DonationContact_Id,
+      </if>
+      <if test="notes != null" >
+        Notes,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="donationunitId != null" >
+        #{donationunitId,jdbcType=INTEGER},
+      </if>
+      <if test="duName != null" >
+        #{duName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="officephone != null" >
+        #{officephone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null" >
+        #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="websiteurl != null" >
+        #{websiteurl,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="duEmail != null" >
+        #{duEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="donationcontactId != null" >
+        #{donationcontactId,jdbcType=INTEGER},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fund.po.DonationunitExample" resultType="java.lang.Integer" >
+    select count(*) from donationunit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update donationunit
+    <set >
+      <if test="record.donationunitId != null" >
+        DonationUnit_Id = #{record.donationunitId,jdbcType=INTEGER},
+      </if>
+      <if test="record.duName != null" >
+        DU_Name = #{record.duName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        Address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zipCode != null" >
+        Zip_Code = #{record.zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.officephone != null" >
+        OfficePhone = #{record.officephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobilephone != null" >
+        MobilePhone = #{record.mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.websiteurl != null" >
+        WebsiteURL = #{record.websiteurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax != null" >
+        Fax = #{record.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.duEmail != null" >
+        DU_Email = #{record.duEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.donationcontactId != null" >
+        DonationContact_Id = #{record.donationcontactId,jdbcType=INTEGER},
+      </if>
+      <if test="record.notes != null" >
+        Notes = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null" >
+        State = #{record.state,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update donationunit
+    set DonationUnit_Id = #{record.donationunitId,jdbcType=INTEGER},
+      DU_Name = #{record.duName,jdbcType=VARCHAR},
+      Address = #{record.address,jdbcType=VARCHAR},
+      Zip_Code = #{record.zipCode,jdbcType=VARCHAR},
+      OfficePhone = #{record.officephone,jdbcType=VARCHAR},
+      MobilePhone = #{record.mobilephone,jdbcType=VARCHAR},
+      WebsiteURL = #{record.websiteurl,jdbcType=VARCHAR},
+      Fax = #{record.fax,jdbcType=VARCHAR},
+      DU_Email = #{record.duEmail,jdbcType=VARCHAR},
+      DonationContact_Id = #{record.donationcontactId,jdbcType=INTEGER},
+      Notes = #{record.notes,jdbcType=VARCHAR},
+      State = #{record.state,jdbcType=TINYINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fund.po.Donationunit" >
+    update donationunit
+    <set >
+      <if test="duName != null" >
+        DU_Name = #{duName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        Address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="zipCode != null" >
+        Zip_Code = #{zipCode,jdbcType=VARCHAR},
+      </if>
+      <if test="officephone != null" >
+        OfficePhone = #{officephone,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilephone != null" >
+        MobilePhone = #{mobilephone,jdbcType=VARCHAR},
+      </if>
+      <if test="websiteurl != null" >
+        WebsiteURL = #{websiteurl,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        Fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="duEmail != null" >
+        DU_Email = #{duEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="donationcontactId != null" >
+        DonationContact_Id = #{donationcontactId,jdbcType=INTEGER},
+      </if>
+      <if test="notes != null" >
+        Notes = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=TINYINT},
+      </if>
+    </set>
+    where DonationUnit_Id = #{donationunitId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fund.po.Donationunit" >
+    update donationunit
+    set DU_Name = #{duName,jdbcType=VARCHAR},
+      Address = #{address,jdbcType=VARCHAR},
+      Zip_Code = #{zipCode,jdbcType=VARCHAR},
+      OfficePhone = #{officephone,jdbcType=VARCHAR},
+      MobilePhone = #{mobilephone,jdbcType=VARCHAR},
+      WebsiteURL = #{websiteurl,jdbcType=VARCHAR},
+      Fax = #{fax,jdbcType=VARCHAR},
+      DU_Email = #{duEmail,jdbcType=VARCHAR},
+      DonationContact_Id = #{donationcontactId,jdbcType=INTEGER},
+      Notes = #{notes,jdbcType=VARCHAR},
+      State = #{state,jdbcType=TINYINT}
+    where DonationUnit_Id = #{donationunitId,jdbcType=INTEGER}
+  </update>
+</mapper>

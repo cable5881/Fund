@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fund.mapper.PositionMapper" >
+  <resultMap id="BaseResultMap" type="com.fund.po.Position" >
+    <id column="Position_Id" property="positionId" jdbcType="INTEGER" />
+    <result column="Position_Name" property="positionName" jdbcType="VARCHAR" />
+    <result column="Level" property="level" jdbcType="INTEGER" />
+    <result column="State" property="state" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Position_Id, Position_Name, Level, State
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.fund.po.PositionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from position
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from position
+    where Position_Id = #{positionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from position
+    where Position_Id = #{positionId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.fund.po.PositionExample" >
+    delete from position
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fund.po.Position" >
+    insert into position (Position_Id, Position_Name, Level, 
+      State)
+    values (#{positionId,jdbcType=INTEGER}, #{positionName,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, 
+      #{state,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fund.po.Position" >
+    insert into position
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="positionId != null" >
+        Position_Id,
+      </if>
+      <if test="positionName != null" >
+        Position_Name,
+      </if>
+      <if test="level != null" >
+        Level,
+      </if>
+      <if test="state != null" >
+        State,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="positionId != null" >
+        #{positionId,jdbcType=INTEGER},
+      </if>
+      <if test="positionName != null" >
+        #{positionName,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fund.po.PositionExample" resultType="java.lang.Integer" >
+    select count(*) from position
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="com.fund.po.Position" >
+    update position
+    <set >
+      <if test="record.positionId != null" >
+        Position_Id = #{record.positionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.positionName != null" >
+        Position_Name = #{record.positionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null" >
+        Level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null" >
+        State = #{record.state,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="com.fund.po.PositionExample" >
+    update position
+    set Position_Id = #{record.positionId,jdbcType=INTEGER},
+      Position_Name = #{record.positionName,jdbcType=VARCHAR},
+      Level = #{record.level,jdbcType=INTEGER},
+      State = #{record.state,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fund.po.Position" >
+    update position
+    <set >
+      <if test="positionName != null" >
+        Position_Name = #{positionName,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        Level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        State = #{state,jdbcType=BIT},
+      </if>
+    </set>
+    where Position_Id = #{positionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fund.po.Position" >
+    update position
+    set Position_Name = #{positionName,jdbcType=VARCHAR},
+      Level = #{level,jdbcType=INTEGER},
+      State = #{state,jdbcType=BIT}
+    where Position_Id = #{positionId,jdbcType=INTEGER}
+  </update>
+</mapper>
